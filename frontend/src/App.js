@@ -7,13 +7,13 @@ import Consulation from "./components/pages/Consultation";
 import News from "./components/pages/News";
 import MyReservation from "./components/pages/MyReservation";
 import NoMatch from "./components/pages/NoMatch";
-import createHistory from "history/createBrowserHistory";
+import { createBrowserHistory } from "history";
 // import "react-date-range/dist/styles.css";
 // import "react-date-range/dist/theme/default.css";
 import { Router, Switch, Route } from "react-router-dom";
 import { useEffect } from "react";
 
-const history = createHistory({ forceRefresh: true });
+const history = createBrowserHistory();
 
 function App() {
   useEffect(() => {
