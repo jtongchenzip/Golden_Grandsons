@@ -71,7 +71,7 @@ const Header = () => {
                 className={classes.page}
                 onClick={() => {
                   history.push(item.path);
-                  console.log(item.path);
+                  window.location.reload();
                 }}
                 key={item.text}
               >
