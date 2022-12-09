@@ -1,23 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme/theme";
+import Header from "./components/Header";
+import { CssBaseline } from "@mui/material";
+import Consulation from "./components/pages/Consultation";
+import News from "./components/pages/News";
+import MyReservation from "./components/pages/MyReservation";
+import NoMatch from "./components/pages/NoMatch";
+import createHistory from "history/createBrowserHistory";
+// import "react-date-range/dist/styles.css";
+// import "react-date-range/dist/theme/default.css";
+import { Router, Switch, Route } from "react-router-dom";
+import { useEffect } from "react";
+
+const history = createHistory({ forceRefresh: true });
 
 function App() {
+  useEffect(() => {
+    console.log("theme", theme);
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Router history={history}>
+          <div>
+            <Header />
+            <Switch>
+              <Route exact path="/consulation" component={Consulation} />
+              <Route exact path="/news" component={News} />
+              <Route exact path="/my-reservation" component={MyReservation} />
+              <Route exact path="/" component={Consulation} />
+              <Route component={NoMatch} />
+            </Switch>
+          </div>
+        </Router>
+      </ThemeProvider>
     </div>
   );
 }
