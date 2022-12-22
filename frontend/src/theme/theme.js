@@ -14,7 +14,7 @@ const sageMono = {
   gray: "#D8cec0",
   semiDarkGray: "#615b4e",
   darkGray: "#656565",
-  black: "#615b4e",
+  black: "#000000",
 };
 
 // green
@@ -200,6 +200,36 @@ const components = {
         fontSize: "2em",
         color: "#CEC7B1",
         "&:hover": {
+          backgroundColor: palette.info.light,
+        },
+      },
+    },
+  },
+  MuiToggleButtonGroup: {
+    styleOverrides: {
+      root: {
+        paddingBottom: "0px !important",
+        paddingRight: "10px !important",
+      },
+    },
+  },
+  MuiToggleButton: {
+    styleOverrides: {
+      root: {
+        borderRadius: "6px !important",
+        border: "1px solid white !important",
+        width: "130px",
+        color: sageMono.black,
+        "&.Mui-selected": {
+          color: sageMono.white,
+          backgroundColor: palette.info.main,
+          "&:hover": {
+            color: sageMono.darkGray,
+            backgroundColor: palette.info.main,
+          },
+        },
+        "&:hover": {
+          color: sageMono.darkGray,
           backgroundColor: palette.info.light,
         },
       },

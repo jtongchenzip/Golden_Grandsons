@@ -29,6 +29,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
+import DateTimePicker from "./DateTimePicker";
 
 const useStyles = makeStyles((theme) => ({
   topContent: {
@@ -210,7 +211,7 @@ export default function CustomTable({
     } else if (nextStep === "readArticles") {
       nextStepOnClick();
     } else if (nextStep === "videoCall") {
-      nextStepOnClick();
+      window.open("https://meet.google.com/whi-jubj-nrn");
     }
   };
   // TODO
@@ -257,12 +258,9 @@ export default function CustomTable({
           <CalendarTodayIcon sx={{ height: 20, width: 22 }} color="#958e77" />
         </IconButton>
       </div>
-      <Dialog open={showFilterTime} maxWidth="md" fullWidth={true}>
-        <DialogTitle>
-          <Typography variant="h4">Select Time</Typography>
-        </DialogTitle>
-        <DialogContent>
-          <div></div>
+      <Dialog open={showFilterTime} maxWidth="md">
+        <DialogContent sx={{ paddingRight: "2px" }}>
+          <DateTimePicker />
         </DialogContent>
         <DialogActions>
           <Button

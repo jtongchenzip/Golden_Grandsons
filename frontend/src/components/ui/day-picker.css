@@ -1,0 +1,65 @@
+/* calendar title */
+.rdp-caption_label {
+  font-weight: 500 !important;
+  font-family: "Noto Sans";
+  font-size: 1.2rem !important;
+  transform: translate(81px,-2px);
+}
+/* calendar navigation button */
+.rdp-nav_button_previous{
+  transform:translateX(-238px)
+}
+.rdp-nav_button_next{
+  transform:translateX(-5px)
+}
+.rdp {
+  --rdp-cell-size: 40px;
+  --rdp-accent-color: #ECE8D8 !important;
+  --rdp-background-color: #F9F7EC !important;
+  --rdp-accent-color-dark: #C7C7B1 !important;
+  --rdp-background-color-dark: #C7C7B1 !important;
+  --rdp-outline: 2px solid var(--rdp-accent-color);
+  --rdp-outline-selected: 3px solid var(--rdp-accent-color);
+  margin: 1em;
+}
+
+/* calendar body */
+.rdp-table{
+  margin-top: 10px !important;
+}
+.rdp-head_cell{
+  font-weight: normal !important;
+  font-family: "Noto Sans";
+  margin-top: 15px;
+}
+.rdp-day_today:not(.rdp-day_outside) {
+  font-weight: 500 !important;
+  font-family: "Noto Sans"
+}
+/* date cells */
+.rdp-day{
+  --rdp-accent-color: #ECE8D8;
+  --rdp-background-color: #F9F7EC;
+  --rdp-accent-color-dark: #C7C7B1;
+  --rdp-background-color-dark: #C7C7B1;
+  --rdp-outline: 2px solid var(--rdp-accent-color);
+  --rdp-outline-selected: 3px solid var(--rdp-accent-color);
+  margin: 3px !important;
+}
+.rdp-day:hover{
+  background-color: #F9F7EC;
+}
+.rdp-day:focus-visible{
+  background-color: #C7C7B1;
+}
+/* when cell selected*/
+.rdp-day_selected{
+  background-color: #ECE8D8;
+  color:white;
+}
+.rdp-day_selected:hover{
+  background-color: #F9F7EC;
+}
+.rdp-day_selected:focus-visible{
+  background-color: #C7C7B1;
+}
