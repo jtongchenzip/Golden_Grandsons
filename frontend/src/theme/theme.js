@@ -112,10 +112,10 @@ const typography = {
 
   // Title
   h4: {
-    fontSize: "1.33rem",
-    fontWeight: 570,
+    fontSize: "1.5rem",
+    fontWeight: 600,
     lineHeight: 33 / 24,
-    // letterSpacing: '-0.01rem',
+    letterSpacing: "0.07rem",
     fontFamily: "Noto Sans",
   },
 
@@ -301,6 +301,27 @@ const components = {
     },
   },
   // dialog
+  MuiDialog: {
+    styleOverrides: {
+      paper: {
+        padding: "5px 5px 2px 5px",
+      },
+    },
+  },
+  MuiDialogTitle: {
+    styleOverrides: {
+      root: {
+        paddingTop: "20px",
+      },
+    },
+  },
+  MuiDialogContent: {
+    styleOverrides: {
+      root: {
+        padding: "10px 5px 0px 5px",
+      },
+    },
+  },
   MuiDialogActions: {
     styleOverrides: {
       root: { padding: "0 19px 12px 0" },
