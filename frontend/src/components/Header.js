@@ -36,8 +36,8 @@ const Header = () => {
         path: "/consulation",
       },
       {
-        text: "News",
-        path: "/news",
+        text: "Articles",
+        path: "/articles",
       },
       {
         text: "My Reservation",

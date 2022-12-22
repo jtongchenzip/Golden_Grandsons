@@ -87,7 +87,11 @@ const useStyles = makeStyles((theme) => ({
   },
   tableBodyCell: {
     padding: "17.5px 5px 17.5px 5px",
-    overflowWrap: "break-word",
+    maxWidth: "100%",
+    maxHeight: "72px",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
     "&:hover~$stickyArrowCell": {
       backgroundImage: "inherit",
     },
@@ -199,11 +203,18 @@ export default function CustomTable({
   }, [columns, data]);
 
   // handle next step
-  const handleNextStep = () => {};
-  useEffect(() => {
+  // TODO
+  const handleNextStep = () => {
     if (nextStep === "reserve") {
+      nextStepOnClick();
+    } else if (nextStep === "readArticles") {
+      nextStepOnClick();
+    } else if (nextStep === "videoCall") {
+      nextStepOnClick();
     }
-  });
+  };
+  // TODO
+  useEffect(() => {});
 
   // handle page change
   useEffect(() => {
@@ -282,14 +293,6 @@ export default function CustomTable({
                       }}
                     >
                       <b>{column.label}</b>
-                      {/* <div className={classes.column}>
-                        <div className={labelMoveLeft(columnComponent, columns, column)}>
-                          <b>{column.label}</b>
-                        </div>
-                        <div className={classes.columnComponent}>
-                          {columnComponent && columnComponent[columns.findIndex((x) => x.id === column.id)]}
-                        </div>
-                      </div> */}
                     </TableCell>
                   </React.Fragment>
                 ))}
@@ -379,9 +382,11 @@ export default function CustomTable({
                         className={`${classes.stickyArrowCell} ${classes.tableCellHover}`}
                       >
                         <Link to={row[linkName]} className={classes.detailLink}>
-                          <IconButton onClick={nextStepOnClick}>
+                          <IconButton onClick={handleNextStep}>
                             {nextStep === "reserve" && <EventAvailableIcon />}
-                            {nextStep === "readNews" && <ArrowForwardIcon />}
+                            {nextStep === "readArticles" && (
+                              <ArrowForwardIcon />
+                            )}
                             {nextStep === "videoCall" && <VideoCallIcon />}
                           </IconButton>
                         </Link>

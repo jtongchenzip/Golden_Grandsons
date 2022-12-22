@@ -23,6 +23,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// response format
+// id: int
+// name: str
+// gender: enums.GenderType
+// domain: Sequence[Domain]
+// available_time = Sequence[DietitianAvailableTime]
+// phone_number: str
+// introduction: str
+// work_unit: str
 const data = [
   {
     name: "erica",
@@ -73,7 +82,7 @@ export default function Consulation() {
         columns={[
           {
             id: "name",
-            label: "Name",
+            label: "Dietitian",
             minWidth: 100,
             width: 100,
             align: "center",
