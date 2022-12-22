@@ -273,6 +273,9 @@ const components = {
       multiline: {
         height: "unset",
       },
+      input: {
+        backgroundColor: `${sageMono.white} !important`,
+      },
     },
   },
   MuiMenuItem: {
