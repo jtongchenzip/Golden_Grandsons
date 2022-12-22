@@ -150,11 +150,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomTable({
   hasSearch,
-  // searchWidthOption = 1, // will remove
-  // searchPlaceholder, // will remove
   buttons,
   columns,
-  // columnComponent, // will remove
   data,
   hasLink,
   linkName,
@@ -181,7 +178,18 @@ export default function CustomTable({
     setShowFilterTime(false);
   };
 
-  const handleSearch = () => {};
+  // search for the keyword in all columns
+  const handleSearch = () => {
+    console.log(search);
+    const searchResult = data.filter((record) => {
+      const values = Object.values(record);
+      return values.some((value) => {
+        return value.includes(String(search));
+      });
+    });
+    setFilterData(searchResult);
+    console.log("search result", searchResult);
+  };
 
   useEffect(() => {
     if (
@@ -194,7 +202,7 @@ export default function CustomTable({
 
   useEffect(() => {
     setFilterData(data);
-  }, [columns, data, search]);
+  }, [columns, data]);
 
   return (
     <>
@@ -232,7 +240,8 @@ export default function CustomTable({
         </DialogContent>
         <DialogActions>
           <Button
-            variant="primary"
+            variant="contained"
+            color="primary"
             onClick={handleCloseFilterTime}
             disableElevation
           >
