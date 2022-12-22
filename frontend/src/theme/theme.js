@@ -1,6 +1,4 @@
-import React from "react";
-
-import { createTheme, responsiveFontSizes } from "@material-ui/core/styles";
+import { createTheme, responsiveFontSizes } from "@mui/material";
 //import ErrorText from "../components/ui/ErrorText";
 
 // UI/UX Standard
@@ -9,32 +7,9 @@ import { createTheme, responsiveFontSizes } from "@material-ui/core/styles";
 */
 
 /*  Colors  */
-const mono = {
+const sageMono = {
   white: "#FFFFFF",
-  veryLightGray: "#F8F8F8",
-  lightGray: "#EAEAEA",
-  emptyGray: "#C4C4C4",
-  gray: "#CACACA",
-  semiDarkGray: "#AAAAAA",
-  darkGray: "#656565",
-  lightBlack: "#090909",
-  black: "#000000",
-};
-
-const blue = {
-  60: "#8DD1FF",
-  80: "#6DC5FF",
-  100: "#1EA5FF",
-  dark: "#1184D1",
-};
-
-const green = {
-  100: "#429044",
-};
-
-const dogeMono = {
-  white: "#FFFFFF",
-  veryLightGray: "#F8F8F8",
+  veryLightYellow: "#faf7f3",
   lightGray: "#eae0d3",
   gray: "#D8cec0",
   semiDarkGray: "#615b4e",
@@ -42,14 +17,15 @@ const dogeMono = {
   black: "#615b4e",
 };
 
-const doge = {
-  60: "#F2ead5",
-  80: "#FF8176",
-  100: "#d7b388",
-  dark: "#Cd9a5a",
+// green
+const sage = {
+  60: "#F1F8EC",
+  80: "#D3E4CD",
+  100: "#ADC2A9",
+  dark: "#99A799",
 };
 
-const dogeRed = {
+const sageRed = {
   60: "#dca4a4",
   80: "#c68181",
   100: "#b44c4c",
@@ -57,62 +33,49 @@ const dogeRed = {
 };
 
 const palette = {
-  /*
-  Default components applies colors in "grey" sub-object if "color" prop was not specified.
-  See component source code to see which one it applies
-  (eg. grey[300] for contained Button backgroundColor).
-  */
-  grey: {
-    0: mono.white,
-    100: dogeMono.gray,
-    300: dogeMono.lightGray, // root backgroundColor for Contained Buttons, etc.
-    A100: dogeMono.lightGray,
-    A400: dogeMono.darkGray,
-    A700: dogeMono.semiDarkGray,
-  },
-
-  black: {
-    main: mono.lightBlack,
-    dark: mono.black,
-  },
-
-  // primary: blue
+  // primary: green
   primary: {
-    light: doge[60],
-    hover: doge[80],
-    main: doge[100],
-    dark: doge.dark,
+    main: sage[100],
+    dark: sage.dark,
+    light: sage[80],
     contrastText: "white",
   },
 
   // secondary: red
   secondary: {
-    light: dogeRed[60],
-    main: dogeRed[100],
-    dark: dogeRed.dark,
+    light: sageRed[60],
+    main: sageRed[100],
+    dark: sageRed.dark,
     contrastText: "white",
   },
 
-  green: {
-    main: green[100],
+  // custom: white and gray
+  custom: {
+    main: sageMono.white,
+    light: sageMono.veryLightYellow,
+  },
+
+  // info: yellow & brown
+  info: {
+    light: "#F9F7EC",
+    main: "#ECE8D8",
+    dark: "#C7C7B1",
   },
 
   action: {
-    disabledBackground: dogeMono.gray,
-    disabled: dogeMono.lightGray, // font color
+    disabledBackground: sageMono.gray,
+    disabled: sageMono.lightGray, // font color
     disabledOpacity: "100%",
   },
 
   background: {
-    default: dogeMono.veryLightGray, // mono - very light
+    default: sageMono.white, // mono - very light
     paper: "white",
     card: "white",
   },
 };
 
 const typography = {
-  /* Note: to change default html font size (basis of 'rem'), go to src/styles/index.css */
-
   // UI/UX style name
   // H1
   h1: {
@@ -135,7 +98,7 @@ const typography = {
   // Big Title
   h3: {
     fontSize: "2.67rem",
-    fontWeight: 700,
+    fontWeight: 500,
     lineHeight: 65 / 48,
     // letterSpacing: '-0.01rem',
     fontFamily: "Noto Sans",
@@ -144,7 +107,7 @@ const typography = {
   // Title
   h4: {
     fontSize: "1.33rem",
-    fontWeight: 700,
+    fontWeight: 570,
     lineHeight: 33 / 24,
     // letterSpacing: '-0.01rem',
     fontFamily: "Noto Sans",
@@ -153,7 +116,7 @@ const typography = {
   // Bold-Body
   h6: {
     fontSize: "1rem",
-    fontWeight: 600,
+    fontWeight: 570,
     lineHeight: 25 / 18,
     // letterSpacing: '-0.01rem',
     fontFamily: "Noto Sans",
@@ -199,523 +162,175 @@ const shape = {
   borderRadius: 10,
 };
 
-const overrides = {
-  MuiCssBaseline: {
-    "@global": {
-      a: {
-        textDecoration: "none",
-        color: blue[100],
-        cursor: "pointer",
+const components = {
+  // button
+  MuiButton: {
+    styleOverrides: {
+      root: {
+        borderRadius: "5px",
+        height: "40px",
+        transition: "background 0.2s",
+        margin: "10px 5px 10px 5px",
+        padding: "8.5px 25px 10px 25px",
+        fontWeight: 550,
+      },
+      containedPrimary: {
+        backgroundColor: palette.primary.main,
+      },
+      info: {
+        backgroundColor: palette.info.main,
         "&:hover": {
-          color: blue[80],
+          backgroundColor: palette.info.light,
         },
         "&:active": {
-          color: blue.dark,
+          backgroundColor: palette.info.dark,
         },
       },
     },
   },
-  // "Button"
-  MuiButton: {
-    root: {
-      borderRadius: "5px",
-      height: "40px",
-      transition: "background 0.2s",
-      margin: "10px 5px 10px 5px",
-      padding: "8.5px 25px 10px 25px",
-    },
-    contained: {
-      "&:hover": {
-        backgroundColor: palette.grey[100],
-      },
-      "&:active": {
-        backgroundColor: palette.grey.A700,
-      },
-      "& path": {
-        fill: palette.black.dark,
-      },
-      "&$disabled": {
-        "& path": {
-          fill: palette.grey.lightGray,
-        },
-      },
-    },
-    containedPrimary: {
-      "&:hover": {
-        backgroundColor: palette.primary.light,
-      },
-      "&:active": {
-        backgroundColor: palette.primary.dark,
-      },
-      "& path": {
-        fill: palette.grey.white,
-      },
-    },
-    containedSecondary: {
-      "&:hover": {
-        backgroundColor: palette.secondary.light,
-      },
-      "&:active": {
-        backgroundColor: palette.secondary.dark,
-      },
-      "& path": {
-        fill: palette.grey.white,
-      },
-    },
-    text: {
-      margin: "10px 5px 10px 5px",
-      padding: "8.5px 25px 10px 25px",
-      "&$disabled": {
-        color: palette.grey[100],
-        "& path": {
-          fill: palette.grey[100],
-        },
-      },
-    },
-    textPrimary: {
-      "&:hover": {
-        backgroundColor: palette.primary.light,
-      },
-      "&:active": {
-        backgroundColor: palette.primary.hover,
-      },
-      "& path": {
-        fill: palette.primary.main,
-      },
-    },
-    textSecondary: {
-      "&:hover": {
-        backgroundColor: palette.secondary.light,
-      },
-      "&:active": {
-        backgroundColor: palette.secondary.main,
-      },
-      "& path": {
-        fill: palette.secondary.dark,
-      },
-    },
-    outlined: {
-      margin: "10px 5px 10px 5px",
-      padding: "7.5px 24px 9px 24px",
-      "&:hover": {
-        backgroundColor: mono.lightGray,
-      },
-      "&:active": {
-        backgroundColor: mono.semiDarkGray,
-      },
-      "& path": {
-        fill: mono.black,
-        height: "20px",
-        width: "20px",
-      },
-      "&$disabled": {
-        color: palette.grey[100],
-        "& path": {
-          fill: palette.grey[100],
-        },
-      },
-    },
-    outlinedPrimary: {
-      "&:hover": {
-        color: mono.white,
-        backgroundColor: palette.primary.light,
-        "& path": {
-          fill: mono.white,
-        },
-      },
-      "&:active": {
-        color: mono.white,
-        backgroundColor: palette.primary.dark,
-        "& path": {
-          fill: mono.white,
-        },
-      },
-      "& path": {
-        fill: palette.primary.dark,
-      },
-    },
-    outlinedSecondary: {
-      "&:hover": {
-        color: mono.white,
-        backgroundColor: palette.secondary.hover,
-        "& path": {
-          fill: mono.white,
-        },
-      },
-      "&:active": {
-        color: mono.white,
-        backgroundColor: palette.secondary.dark,
-        "& path": {
-          fill: mono.white,
-        },
-      },
-      "& path": {
-        fill: palette.secondary.dark,
-      },
-    },
-    startIcon: {
-      marginRight: "10px",
-      marginLeft: "0px",
-      "& path": {
-        height: "20px",
-        width: "20px",
-      },
-    },
-    endIcon: {
-      marginLeft: "10px",
-      marginRight: "0px",
-      "& path": {
-        height: "20px",
-        width: "20px",
-      },
-    },
-  },
-
   MuiIconButton: {
-    root: {
-      color: mono.black,
-      height: "30px",
-      width: "30px",
-      "&:hover": {
-        backgroundColor: mono.lightGray,
-      },
-      "&:active": {
-        backgroundColor: mono.gray,
-        "& path": {
-          fill: mono.white,
-        },
-      },
-      "& path": {
-        fill: mono.black,
-      },
-      "&$disabled": {
-        "& path": {
-          fill: mono.gray,
-        },
-      },
-    },
-  },
-  MuiLink: {
-    root: {
-      textDecoration: "none",
-      color: blue[100],
-      cursor: "pointer",
-      "&:hover": {
-        color: blue[80],
-      },
-      "&:active": {
-        color: blue.dark,
-      },
-    },
-    underlineHover: {
-      "&:hover": {
-        textDecoration: "none",
-      },
-    },
-  },
-
-  // "Input"
-  MuiInputBase: {
-    root: {
-      height: "45px",
-
-      backgroundColor: mono.white,
-    },
-    multiline: {
-      height: "unset",
-    },
-  },
-
-  MuiFormControl: {
-    root: {
-      margin: "10px 0 5px 0",
-      // width: '350px',
-    },
-  },
-  MuiFormControlLabel: {
-    root: {
-      marginLeft: "0px",
-    },
-  },
-  MuiSelect: {
-    outlined: {
-      padding: "10px 0px 10px 15px",
-      alignItems: "center",
-    },
-    selectMenu: {
-      // height: '1.1876em',
-      whiteSpace: "nowrap",
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-    },
-  },
-  MuiSwitch: {
-    root: {
-      height: "28px",
-      width: "48px",
-      marginRight: "16px",
-      padding: "0px",
-    },
-    track: {
-      height: "15px",
-      width: "40px",
-      margin: "6.5px 4px 6.5px 4px",
-    },
-    thumb: {
-      height: "22px",
-      width: "22px",
-      boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.35)",
-      padding: "0px",
-      transform: "translateX(3px) translateY(3px)",
-    },
-    switchBase: {
-      height: "22px",
-      width: "22px",
-      padding: "0px",
-      color: mono.veryLightGray,
-      "&:hover": {
-        backgroundColor: "transparent",
-      },
-    },
-    colorPrimary: {
-      "&$checked": {
+    styleOverrides: {
+      root: {
+        fontSize: "2em",
+        color: "#CEC7B1",
         "&:hover": {
-          backgroundColor: "transparent",
+          backgroundColor: palette.info.light,
         },
       },
     },
   },
-  // Base of "List"
-  MuiPopover: {
-    paper: { boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.25)" },
-  },
-
-  MuiMenuItem: {
-    root: {
-      paddingTop: "12px",
-      paddingBottom: "12px",
-      borderRadius: "10px",
-      height: "45px",
-    },
-  },
+  // textfield
   MuiTextField: {
-    root: {
-      width: "350px",
+    styleOverrides: {
+      root: {
+        height: "40px",
+        width: "300px",
+        "& .MuiOutlinedInput-root": {
+          "&:hover fieldset": {
+            borderColor: palette.info.main,
+          },
+          "&.Mui-focused fieldset": {
+            borderColor: palette.info.dark,
+          },
+        },
+      },
     },
   },
   MuiOutlinedInput: {
-    root: {
-      "& $notchedOutline": {
-        // borderRadius: 10,
+    styleOverrides: {
+      root: {
+        borderRadius: "5px",
+        paddingRight: "8px",
+        "& $notchedOutline": {
+          borderRadius: 10,
+        },
+        "& input": {
+          padding: "7px 0px 8px 14px",
+          fontWeight: 500,
+          fontSize: "1rem",
+        },
       },
-      "&:hover:not($disabled):not($focused):not($error) $notchedOutline": {
-        borderColor: mono.gray,
-      }, // removes hover effect
-
-      "& input": {
+      multiline: {
         padding: "10px 0px 10px 15px",
         fontWeight: 500,
         fontSize: "1rem",
       },
     },
-    multiline: {
-      padding: "10px 0px 10px 15px",
-      fontWeight: 500,
-      fontSize: "1rem",
-    },
   },
-  MuiFormHelperText: {
-    root: {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      marginTop: "5px",
-      "& p": {
-        marginLeft: "8px",
-      },
-    },
-  },
-  MuiInputLabel: {
-    outlined: {
-      transform: "translate(15px, 13px) scale(1)",
-      "&$shrink": {
-        transform: "translate(14px, -20px) scale(0.89)",
-        fontWeight: 400,
-      },
-    },
-  },
-  MuiRadio: {
-    root: {
-      display: "flex",
-      padding: "4px",
-      "&:hover": {
-        backgroundColor: mono.lightGray,
-      },
-      "&:active": {
-        backgroundColor: mono.gray,
-      },
-    },
-    colorSecondary: {
-      "&$checked": {
-        display: "flex",
-        padding: "4px",
+  // select
+  MuiSelect: {
+    styleOverrides: {
+      root: {
         "&:hover": {
-          backgroundColor: mono.lightGray,
+          "&& fieldset": {
+            borderColor: palette.info.main,
+          },
         },
-        "&:active": {
-          backgroundColor: mono.gray,
+        "&.Mui-focused": {
+          "&& fieldset": {
+            borderColor: palette.info.dark,
+          },
         },
+      },
+      outlined: {
+        padding: "10px 0px 10px 15px",
+        alignItems: "center",
+      },
+      selectMenu: {
+        // height: '1.1876em',
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
       },
     },
   },
-
-  // Table
-  MuiTableRow: {
-    hover: {
-      "&:hover": {
-        backgroundColor: `${mono.veryLightGray} !important`,
+  MuiInputBase: {
+    styleOverrides: {
+      root: {
+        height: "45px",
+        backgroundColor: sageMono.white,
+      },
+      multiline: {
+        height: "unset",
       },
     },
   },
-
-  MuiPaper: {
-    // elevation: {  },
-    outlined: {
-      border: `1px solid ${palette.grey[300]}`,
-    },
-    rounded: {
-      // borderRadius: '10px',
+  MuiMenuItem: {
+    styleOverrides: {
+      root: {},
     },
   },
-
-  // Box (dialog)
-  MuiDialog: {
-    paper: {
-      padding: "4px 6px 4px 6px",
-      boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)",
+  // about header
+  MuiContainer: {
+    styleOverrides: {
+      root: {
+        maxWidth: "1900px !important",
+        paddingRight: 0,
+        marginRight: 0,
+        marginLeft: 0,
+      },
     },
-    paperWidthMd: { width: "600px" },
-    paperWidthSm: { width: "460px" },
   },
-  MuiDialogTitle: {
-    // root: { padding: '20px 30px 0 30px' },
-  },
-  MuiDialogContent: {
-    // root: { padding: '20px 30px 12px 30px' },
-  },
+  // dialog
   MuiDialogActions: {
-    root: { padding: "0 19px 6px 0" },
-  },
-
-  MuiSnackbarContent: {
-    root: {
-      width: "600px",
-      padding: "16px 20px",
-      borderRadius: "12px",
-      boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.25)",
-      backgroundColor: mono.black,
-
-      // message : body1
-      fontSize: "1rem",
-      fontWeight: 500,
-      lineHeight: 25 / 18,
-      // letterSpacing: '-0.01rem',
-      color: mono.white,
-    },
-    message: {
-      display: "flex",
-      alignItems: "center",
-      minHeight: "25px",
-      padding: "0px",
-    },
-    action: {
-      marginRight: "21px",
-      paddingLeft: "0px",
+    styleOverrides: {
+      root: { padding: "0 19px 12px 0" },
     },
   },
-
-  // "Mask"
-  MuiBackdrop: {
-    root: {
-      backgroundColor: `${palette.grey[300]}66`, // 8-digit hex for opacity = 40%
-    },
-  },
-};
-
-const props = {
-  // This includes List items, icon buttons, etc.
-  MuiButtonBase: {
-    disableRipple: true,
-  },
-
-  MuiButton: {
-    variant: "contained",
-    disableElevation: true,
-  },
-
-  MuiIconButton: {
-    size: "small",
-  },
-
+  // icon
   MuiSvgIcon: {
-    fontSize: "small",
+    styleOverrides: {
+      fontSizeSmall: {
+        height: "16px",
+        width: "16px",
+      },
+    },
   },
-
-  MuiFormControl: {
-    variant: "outlined",
+  // table
+  MuiTableRow: {
+    styleOverrides: {
+      root: {
+        "&:hover": {
+          backgroundColor: `${palette.custom.light} !important`,
+        },
+      },
+      hover: {
+        "&:hover": {
+          backgroundColor: palette.info.dark,
+        },
+      },
+    },
   },
-
-  MuiList: {
-    disablePadding: true,
-  },
-
-  MuiMenu: {
-    // make sure the popover is under the input (MUI default: over the input component)
-    getContentAnchorEl: null,
-    anchorOrigin: { vertical: "bottom", horizontal: "left" },
-    transformOrigin: { vertical: "top", horizontal: "left" },
-  },
-
-  MuiTextField: {
-    variant: "outlined",
-    // style: { width: 350 },
-  },
-
-  MuiOutlinedInput: {
-    notched: false,
-  },
-
-  // MuiFormHelperText: {
-  //   component: ErrorText,
-  // },
-
-  MuiDialogTitle: {
-    disableTypography: true,
-  },
-};
-
-const headerStyle = {
-  // logo: (
-  //   <img
-  //     alt="doge"
-  //     width={35}
-  //     height={35}
-  //     src="https://img.icons8.com/ios/50/ffffff/doge.png"
-  //   />
-  // ),
-  background: palette.primary.main,
-  color: mono.white,
-  activeColor: dogeMono.lightGray,
-  hasIndicator: true,
 };
 
 const theme = createTheme({
   palette,
   typography,
   shape,
-  overrides,
-  props,
-  headerStyle,
+  //overrides,
+  components,
+  // props,
+  // headerStyle,
 });
 
 export default responsiveFontSizes(theme);
