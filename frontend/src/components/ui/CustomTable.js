@@ -26,6 +26,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import VideoCallIcon from "@mui/icons-material/VideoCall";
+import DateTimePicker from "./DateTimePicker";
 
 const useStyles = makeStyles((theme) => ({
   topContent: {
@@ -82,10 +86,13 @@ const useStyles = makeStyles((theme) => ({
   columnComponent: {
     transform: "translateX(5px) translateY(2px)",
   },
-  row: {},
   tableBodyCell: {
     padding: "17.5px 5px 17.5px 5px",
-    overflowWrap: "break-word",
+    maxWidth: "100%",
+    maxHeight: "72px",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
     "&:hover~$stickyArrowCell": {
       backgroundImage: "inherit",
     },
@@ -150,15 +157,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomTable({
   hasSearch,
-  // searchWidthOption = 1, // will remove
-  // searchPlaceholder, // will remove
   buttons,
   columns,
-  // columnComponent, // will remove
   data,
   hasLink,
   linkName,
   children,
+  nextStep,
+  nextStepOnClick,
 }) {
   const classes = useStyles();
   const [curPage, setPage] = useState(0);
@@ -181,8 +187,37 @@ export default function CustomTable({
     setShowFilterTime(false);
   };
 
-  const handleSearch = () => {};
+  // search for the keyword in all columns
+  const handleSearch = () => {
+    console.log(search);
+    const searchResult = data.filter((record) => {
+      const values = Object.values(record);
+      return values.some((value) => {
+        return value.includes(String(search));
+      });
+    });
+    setFilterData(searchResult);
+    console.log("search result", searchResult);
+  };
+  useEffect(() => {
+    setFilterData(data);
+  }, [columns, data]);
 
+  // handle next step
+  // TODO
+  const handleNextStep = () => {
+    if (nextStep === "reserve") {
+      nextStepOnClick();
+    } else if (nextStep === "readArticles") {
+      nextStepOnClick();
+    } else if (nextStep === "videoCall") {
+      window.open("https://meet.google.com/whi-jubj-nrn");
+    }
+  };
+  // TODO
+  useEffect(() => {});
+
+  // handle page change
   useEffect(() => {
     if (
       pageInput <= Math.ceil(filterData.length / rowsPerPage) &&
@@ -191,10 +226,6 @@ export default function CustomTable({
       setPage(pageInput - 1);
     }
   }, [filterData.length, pageInput, rowsPerPage]);
-
-  useEffect(() => {
-    setFilterData(data);
-  }, [columns, data, search]);
 
   return (
     <>
@@ -219,20 +250,22 @@ export default function CustomTable({
             ),
           }}
         />
-        <IconButton onClick={() => setShowFilterTime(true)} color="info">
+        <IconButton
+          onClick={() => setShowFilterTime(true)}
+          sx={{ marginRight: "15px" }}
+          color="info"
+        >
           <CalendarTodayIcon sx={{ height: 20, width: 22 }} color="#958e77" />
         </IconButton>
       </div>
-      <Dialog open={showFilterTime} maxWidth="md" fullWidth={true}>
-        <DialogTitle>
-          <Typography variant="h4">Select Time</Typography>
-        </DialogTitle>
-        <DialogContent>
-          <div></div>
+      <Dialog open={showFilterTime} maxWidth="md">
+        <DialogContent sx={{ paddingRight: "2px" }}>
+          <DateTimePicker />
         </DialogContent>
         <DialogActions>
           <Button
-            variant="primary"
+            variant="contained"
+            color="primary"
             onClick={handleCloseFilterTime}
             disableElevation
           >
@@ -258,14 +291,6 @@ export default function CustomTable({
                       }}
                     >
                       <b>{column.label}</b>
-                      {/* <div className={classes.column}>
-                        <div className={labelMoveLeft(columnComponent, columns, column)}>
-                          <b>{column.label}</b>
-                        </div>
-                        <div className={classes.columnComponent}>
-                          {columnComponent && columnComponent[columns.findIndex((x) => x.id === column.id)]}
-                        </div>
-                      </div> */}
                     </TableCell>
                   </React.Fragment>
                 ))}
@@ -355,10 +380,12 @@ export default function CustomTable({
                         className={`${classes.stickyArrowCell} ${classes.tableCellHover}`}
                       >
                         <Link to={row[linkName]} className={classes.detailLink}>
-                          <IconButton>
-                            {/* <Icon.ArrowForwardRoundedIcon
-                              className={classes.toggleButtonIcon}
-                            /> */}
+                          <IconButton onClick={handleNextStep}>
+                            {nextStep === "reserve" && <EventAvailableIcon />}
+                            {nextStep === "readArticles" && (
+                              <ArrowForwardIcon />
+                            )}
+                            {nextStep === "videoCall" && <VideoCallIcon />}
                           </IconButton>
                         </Link>
                       </TableCell>

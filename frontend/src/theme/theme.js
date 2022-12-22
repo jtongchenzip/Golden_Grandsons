@@ -9,12 +9,12 @@ import { createTheme, responsiveFontSizes } from "@mui/material";
 /*  Colors  */
 const sageMono = {
   white: "#FFFFFF",
-  veryLightYellow: "#faf7f3",
+  veryLightYellow: "#fafaf6",
   lightGray: "#eae0d3",
   gray: "#D8cec0",
   semiDarkGray: "#615b4e",
   darkGray: "#656565",
-  black: "#615b4e",
+  black: "#000000",
 };
 
 // green
@@ -62,6 +62,12 @@ const palette = {
     dark: "#C7C7B1",
   },
 
+  // success: gray and black
+  success: {
+    main: sageMono.lightGray,
+    light: sageMono.black,
+  },
+
   action: {
     disabledBackground: sageMono.gray,
     disabled: sageMono.lightGray, // font color
@@ -106,10 +112,10 @@ const typography = {
 
   // Title
   h4: {
-    fontSize: "1.33rem",
-    fontWeight: 570,
+    fontSize: "1.5rem",
+    fontWeight: 600,
     lineHeight: 33 / 24,
-    // letterSpacing: '-0.01rem',
+    letterSpacing: "0.07rem",
     fontFamily: "Noto Sans",
   },
 
@@ -199,6 +205,36 @@ const components = {
       },
     },
   },
+  MuiToggleButtonGroup: {
+    styleOverrides: {
+      root: {
+        paddingBottom: "0px !important",
+        paddingRight: "10px !important",
+      },
+    },
+  },
+  MuiToggleButton: {
+    styleOverrides: {
+      root: {
+        borderRadius: "6px !important",
+        border: "1px solid white !important",
+        width: "130px",
+        color: sageMono.black,
+        "&.Mui-selected": {
+          color: sageMono.white,
+          backgroundColor: palette.info.main,
+          "&:hover": {
+            color: sageMono.darkGray,
+            backgroundColor: palette.info.main,
+          },
+        },
+        "&:hover": {
+          color: sageMono.darkGray,
+          backgroundColor: palette.info.light,
+        },
+      },
+    },
+  },
   // textfield
   MuiTextField: {
     styleOverrides: {
@@ -273,6 +309,9 @@ const components = {
       multiline: {
         height: "unset",
       },
+      input: {
+        backgroundColor: `${sageMono.white} !important`,
+      },
     },
   },
   MuiMenuItem: {
@@ -292,6 +331,27 @@ const components = {
     },
   },
   // dialog
+  MuiDialog: {
+    styleOverrides: {
+      paper: {
+        padding: "5px 5px 2px 5px",
+      },
+    },
+  },
+  MuiDialogTitle: {
+    styleOverrides: {
+      root: {
+        paddingTop: "20px",
+      },
+    },
+  },
+  MuiDialogContent: {
+    styleOverrides: {
+      root: {
+        padding: "10px 5px 0px 5px",
+      },
+    },
+  },
   MuiDialogActions: {
     styleOverrides: {
       root: { padding: "0 19px 12px 0" },
