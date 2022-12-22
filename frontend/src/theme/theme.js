@@ -9,7 +9,7 @@ import { createTheme, responsiveFontSizes } from "@mui/material";
 /*  Colors  */
 const sageMono = {
   white: "#FFFFFF",
-  veryLightYellow: "#faf7f3",
+  veryLightYellow: "#fafaf6",
   lightGray: "#eae0d3",
   gray: "#D8cec0",
   semiDarkGray: "#615b4e",
@@ -60,6 +60,12 @@ const palette = {
     light: "#F9F7EC",
     main: "#ECE8D8",
     dark: "#C7C7B1",
+  },
+
+  // success: gray and black
+  success: {
+    main: sageMono.lightGray,
+    light: sageMono.black,
   },
 
   action: {

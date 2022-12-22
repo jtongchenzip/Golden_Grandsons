@@ -1,4 +1,11 @@
-import { Typography } from "@mui/material";
+import {
+  Typography,
+  Dialog,
+  DialogContent,
+  DialogActions,
+  DialogTitle,
+  Button,
+} from "@mui/material";
 import React, { useState, useEffect } from "react";
 import CustomTable from "../ui/CustomTable";
 import { makeStyles } from "@mui/styles";
@@ -45,8 +52,18 @@ const data = [
     phone_number: "0907344689",
   },
 ];
+
 export default function Consulation() {
   const classes = useStyles();
+  const [showReserveDialog, setShowReserveDialog] = useState(false);
+
+  const handleReserve = () => {
+    setShowReserveDialog(true);
+  };
+
+  const handleSubmitReserve = () => {
+    setShowReserveDialog(false);
+  };
 
   return (
     <div className={classes.container}>
@@ -106,7 +123,28 @@ export default function Consulation() {
             align: "center",
           },
         ]}
+        hasLink
+        nextStep="reserve"
+        nextStepOnClick={handleReserve}
       />
+      <Dialog open={showReserveDialog} maxWidth="md" fullWidth={true}>
+        <DialogTitle>
+          <Typography variant="h4">Reserve</Typography>
+        </DialogTitle>
+        <DialogContent>
+          <div></div>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSubmitReserve}
+            disableElevation
+          >
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
