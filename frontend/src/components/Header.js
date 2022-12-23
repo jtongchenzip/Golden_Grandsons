@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   page: {
     paddingRight: "40px",
+    cursor: "pointer",
   },
   header: {
     color: theme.palette.custom.main,
