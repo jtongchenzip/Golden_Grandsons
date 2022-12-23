@@ -69,22 +69,48 @@ export default function Consulation() {
 	const classes = useStyles();
 	const [showReserveDialog, setShowReserveDialog] = useState(false);
 	const [topic, setTopic] = useState("");
+	const [filterTimeSlots, setFilterTimeSlots] = useState([]);
+	const [filterDate, setFilterDate] = useState("");
+	const [disabled, setDisabled] = useState(true);
 	// const [data, setData] = useState([]);
 	// useEffect(() => {
 	//   setData(getDietitian()); //TODO
 	// }, []);
 
+	useEffect(() => {
+		if (!filterDate || filterTimeSlots.length === 0 || !topic) {
+			setDisabled(true);
+		} else setDisabled(false);
+	}, [disabled, filterDate, filterTimeSlots, topic]);
+
 	const handleReserve = () => {
 		setShowReserveDialog(true);
 	};
 
-	const handleSubmitReserve = () => {
+	const handleSubmitFilterTime = () => {
+		console.log("selected results", filterDate, filterTimeSlots);
+		const dateFormat =
+			filterDate.getFullYear() +
+			"/" +
+			("0" + (filterDate.getMonth() + 1)).slice(-2) +
+			"/" +
+			("0" + filterDate.getDate()).slice(-2);
+		const filterTime = String(dateFormat + " " + filterTimeSlots);
+		console.log("filter time", filterTime);
+
 		setShowReserveDialog(false);
+		setDisabled(true);
+		setTopic("");
+		setFilterDate("");
+		setFilterTimeSlots([]);
 	};
 
 	const handleSubmitCancel = () => {
 		setShowReserveDialog(false);
+		setDisabled(true);
 		setTopic("");
+		setFilterDate("");
+		setFilterTimeSlots([]);
 	};
 
 	const handleTopicChange = (event) => {
@@ -180,15 +206,22 @@ export default function Consulation() {
 							})}
 						</Select>
 					</FormControl>
-					<DateTimePicker />
+					<DateTimePicker
+						selectedDate={filterDate}
+						setSelectedDate={setFilterDate}
+						selectedTime={filterTimeSlots}
+						setSelectedTime={setFilterTimeSlots}
+						multipleTimeSlots={false}
+					/>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleSubmitCancel}>Cancel</Button>
 					<Button
 						variant="contained"
 						color="primary"
-						onClick={handleSubmitReserve}
+						onClick={handleSubmitFilterTime}
 						disableElevation
+						disabled={disabled}
 					>
 						Submit
 					</Button>
