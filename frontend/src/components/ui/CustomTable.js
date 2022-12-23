@@ -386,6 +386,8 @@ export default function CustomTable({
                           >
                             {column.format && typeof value === "number"
                               ? column.format(value)
+                              : column.type === "list"
+                              ? value.toString().split(",").join(", ")
                               : value}
                           </TableCell>
                         </React.Fragment>

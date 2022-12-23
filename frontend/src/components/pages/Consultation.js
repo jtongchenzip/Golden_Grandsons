@@ -108,6 +108,7 @@ export default function Consulation() {
             minWidth: 100,
             width: 200,
             align: "center",
+            type: "list",
           },
           {
             id: "gender",
