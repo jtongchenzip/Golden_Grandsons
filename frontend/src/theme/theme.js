@@ -177,13 +177,15 @@ const components = {
         height: "40px",
         transition: "background 0.2s",
         margin: "10px 5px 10px 5px",
-        padding: "8.5px 25px 10px 25px",
+        padding: "8.5px 25px 9px 25px",
         fontWeight: 550,
       },
       containedPrimary: {
+        padding: "9.5px 25px 9px 25px",
         backgroundColor: palette.primary.main,
       },
       textPrimary: {
+        padding: "9.5px 25px 8px 25px",
         "&:hover": {
           backgroundColor: "#F1F8EC",
         },

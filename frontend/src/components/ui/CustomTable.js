@@ -203,29 +203,50 @@ export default function CustomTable({
   };
   // handle filter time slots
   const handleSubmitFilterTime = () => {
-    console.log("selected results", filterDate, filterTimeSlots);
-    if (filterDate == null && filterTimeSlots === []) {
+    if (filterDate === "" && filterTimeSlots.length === 0) {
       setFilterData(data);
+    } else if (filterDate !== "" && filterTimeSlots.length === 0) {
+      const dateFormat = transformDateFormat(filterDate);
+      const filterTime = String(dateFormat);
+      const filterResult = dataFilterByTime(data, filterTime, "date");
+      setFilterData(filterResult);
+    } else if (filterDate === "" && filterTimeSlots.length !== 0) {
+      const filterTime = filterTimeSlots.map((slot) => String(slot));
+      const filterResult = dataFilterByTime(data, filterTime, "time");
+      setFilterData(filterResult);
     } else {
-      const dateFormat =
-        filterDate.getFullYear() +
-        "/" +
-        ("0" + (filterDate.getMonth() + 1)).slice(-2) +
-        "/" +
-        ("0" + filterDate.getDate()).slice(-2);
+      const dateFormat = transformDateFormat(filterDate);
       const filterTime = filterTimeSlots.map((slot) =>
         String(dateFormat + " " + slot)
       );
-      console.log("filter time", filterTime);
-      const filterResult = data.filter((record) => {
-        return record.available_time.some((slot) => {
-          return filterTime.includes(slot);
-        });
-      });
-      console.log("filterTimeResult", filterResult);
+      const filterResult = dataFilterByTime(data, filterTime, "datetime");
       setFilterData(filterResult);
     }
     setShowFilterTime(false);
+  };
+  // functions for time filter
+  const transformDateFormat = (filterDate) => {
+    return (
+      filterDate.getFullYear() +
+      "/" +
+      ("0" + (filterDate.getMonth() + 1)).slice(-2) +
+      "/" +
+      ("0" + filterDate.getDate()).slice(-2)
+    );
+  };
+  const dataFilterByTime = (data, filterTime, mode) => {
+    return data.filter((record) => {
+      return record.available_time.some((slot) => {
+        if (mode === "time") {
+          return filterTime.some((filterKey) => slot.includes(filterKey));
+        } else if (mode === "date") {
+          console.log("slot", slot);
+          return slot.includes(filterTime);
+        } else {
+          return filterTime.includes(slot);
+        }
+      });
+    });
   };
 
   // handle next step

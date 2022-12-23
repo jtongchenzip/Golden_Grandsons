@@ -53,7 +53,9 @@ class Session:
     id: int
     user_id: int
     dietitan_id: int
+    dietitan_name: str
     domain_id: int
+    domain_name: str
     session_status: enums.SessionStatusType
     link: str
     start_time: datetime
@@ -64,6 +66,7 @@ class Session:
 class Article:
     id: int
     advertiser_id: int
+    advertiser_name: str
     post_time: datetime
     title: str
     context: str
