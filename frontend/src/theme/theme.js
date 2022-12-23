@@ -183,6 +183,11 @@ const components = {
       containedPrimary: {
         backgroundColor: palette.primary.main,
       },
+      textPrimary: {
+        "&:hover": {
+          backgroundColor: "#F1F8EC",
+        },
+      },
       info: {
         backgroundColor: palette.info.main,
         "&:hover": {

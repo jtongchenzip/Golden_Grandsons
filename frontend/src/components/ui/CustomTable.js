@@ -291,7 +291,14 @@ export default function CustomTable({
           />
         </DialogContent>
         <DialogActions>
-          <Button>Clear Filter</Button>
+          <Button
+            onClick={() => {
+              setFilterDate("");
+              setFilterTimeSlots([]);
+            }}
+          >
+            Clear Filter
+          </Button>
           <Button
             variant="contained"
             color="primary"
