@@ -14,6 +14,11 @@ import { Router, Switch, Route } from "react-router-dom";
 const history = createBrowserHistory();
 
 function App() {
+	window.addEventListener("popstate", () => {
+		// URL changed!
+		window.location.reload();
+	});
+
 	return (
 		<div className="App">
 			<ThemeProvider theme={theme}>
