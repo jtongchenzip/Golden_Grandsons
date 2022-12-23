@@ -1,0 +1,20 @@
+/* Pen-specific styles */
+/* * {
+  box-sizing: border-box;
+} */
+
+html, body, div {
+  height: 100%;
+}
+
+/* Pattern styles */
+.left-half {
+  background-color: #ff9e2c;
+  float: left;
+  width: 70%;
+}
+.right-half {
+  background-color: #b6701e;
+  float: left;
+  width: 30%;
+}
