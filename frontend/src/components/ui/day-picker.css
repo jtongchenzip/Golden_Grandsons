@@ -3,14 +3,17 @@
   font-weight: 500 !important;
   font-family: "Noto Sans";
   font-size: 1.2rem !important;
-  transform: translate(81px,-2px);
+  transform: translate(20px,-2px);
 }
 /* calendar navigation button */
+.rdp-nav{
+  width:40px;
+}
 .rdp-nav_button_previous{
-  transform:translateX(-238px)
+  transform:translateX(-278px)
 }
 .rdp-nav_button_next{
-  transform:translateX(-5px)
+  transform:translateX(-45px)
 }
 .rdp {
   --rdp-cell-size: 40px;
