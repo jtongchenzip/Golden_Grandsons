@@ -171,6 +171,8 @@ export default function CustomTable({
   const [pageInput, setPageInput] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [search, setSearch] = useState("");
+  const [filterTimeSlots, setFilterTimeSlots] = useState([]);
+  const [filterDate, setFilterDate] = useState("");
   const [filterData, setFilterData] = useState(data);
   const [showFilterTime, setShowFilterTime] = useState(false);
 
@@ -183,13 +185,13 @@ export default function CustomTable({
     }
   };
 
-  const handleCloseFilterTime = () => {
-    setShowFilterTime(false);
-  };
-
+  // initialize data
+  useEffect(() => {
+    setFilterData(data);
+  }, [columns, data]);
   // search for the keyword in all columns
   const handleSearch = () => {
-    console.log(search);
+    console.log("search keyword", search);
     const searchResult = data.filter((record) => {
       const values = Object.values(record);
       return values.some((value) => {
@@ -199,9 +201,21 @@ export default function CustomTable({
     setFilterData(searchResult);
     console.log("search result", searchResult);
   };
-  useEffect(() => {
-    setFilterData(data);
-  }, [columns, data]);
+  // handle filter time slots
+  const handleSubmitFilterTime = () => {
+    const filterTime = filterTimeSlots.map((slot) =>
+      String(filterDate + " " + slot)
+    );
+    console.log("filter time", filterTime);
+    const filterResult = data.filter((record) => {
+      return record.available_time.some((slot) => {
+        return filterTime.includes(slot);
+      });
+    });
+    console.log("filterTimeResult", filterResult);
+    setFilterData(filterResult);
+    setShowFilterTime(false);
+  };
 
   // handle next step
   // TODO
@@ -260,13 +274,18 @@ export default function CustomTable({
       </div>
       <Dialog open={showFilterTime} maxWidth="md">
         <DialogContent sx={{ paddingRight: "2px" }}>
-          <DateTimePicker />
+          <DateTimePicker
+            selectedDate={filterDate}
+            setSelectedDate={setFilterDate}
+            selectedTime={filterTimeSlots}
+            setSelectedTime={setFilterTimeSlots}
+          />
         </DialogContent>
         <DialogActions>
           <Button
             variant="contained"
             color="primary"
-            onClick={handleCloseFilterTime}
+            onClick={handleSubmitFilterTime}
             disableElevation
           >
             Apply
@@ -294,7 +313,6 @@ export default function CustomTable({
                     </TableCell>
                   </React.Fragment>
                 ))}
-
                 <TableCell
                   key={hasLink ? "link" : "blank"}
                   align="right"

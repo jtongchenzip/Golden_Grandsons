@@ -49,23 +49,29 @@ const timeSlots = [
 ];
 
 export default function DateTimePicker({
-  className = "",
-  value,
-  setValue,
-  vertical,
+  selectedDate,
+  setSelectedDate,
+  selectedTime,
+  setSelectedTime,
 }) {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedTime, setSelectedTime] = useState([]);
+  const [day, setDay] = useState(null);
   const handleSelectedTime = (
     event: React.MouseEvent<HTMLElement>,
     newFormats: string[]
   ) => {
     setSelectedTime(newFormats);
   };
-
   useEffect(() => {
-    console.log(selectedDate, typeof selectedDate);
+    if (day !== null) {
+      setSelectedDate(
+        day.getFullYear() +
+          "/" +
+          ("0" + (day.getMonth() + 1)).slice(-2) +
+          "/" +
+          ("0" + day.getDate()).slice(-2)
+      );
+    }
   });
 
   return (
@@ -73,8 +79,8 @@ export default function DateTimePicker({
       <div className={classes.dayPicker}>
         <DayPicker
           mode="single"
-          selected={selectedDate}
-          onSelect={setSelectedDate}
+          selected={day}
+          onSelect={setDay}
           showOutsideDays
         />
       </div>
