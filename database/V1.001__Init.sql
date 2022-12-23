@@ -31,7 +31,7 @@ CREATE TABLE dietitian_account (
 CREATE TABLE dietitian_available_time (
     id            SERIAL      PRIMARY KEY,
     dietitian_id  INTEGER     NOT NULL REFERENCES dietitian_account(id),
-    available_day INTEGER     NOT NULL UNIQUE,
+    available_day INTEGER     NOT NULL,
     start_time    TIME        NOT NULL,
     end_time      TIME        NOT NULL
 );
