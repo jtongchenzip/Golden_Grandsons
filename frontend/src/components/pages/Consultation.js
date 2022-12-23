@@ -51,7 +51,7 @@ const data = [
   },
 ];
 
-export default function Consulation() {
+export default function Consultation() {
   const classes = useStyles();
   const [showReserveDialog, setShowReserveDialog] = useState(false);
   // const [data, setData] = useState([]);
@@ -69,7 +69,7 @@ export default function Consulation() {
 
   return (
     <div className={classes.container}>
-      <Typography variant="h3">Consulation</Typography>
+      <Typography variant="h3">Consultation</Typography>
       <CustomTable
         data={data}
         columns={[
