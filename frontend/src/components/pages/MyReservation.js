@@ -2,6 +2,8 @@ import { Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import CustomTable from "../ui/CustomTable";
 import { makeStyles } from "@mui/styles";
+import { getSessions } from "../../actions/actions";
+import { set } from "date-fns";
 
 // import Icon from "./icon/index";
 
@@ -16,34 +18,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// response format
-// id: int
-// user_id: int
-// dietitan_id: int
-// domain_id: int
-// session_status: enums.SessionStatusType
-// link: str
-// start_time: datetime
-// end_time: datetime
 const data = [
   {
     dietitian_name: "erica",
     domain_name: "臨床營養",
     session_status: "reserved",
-    path: "", //對應回傳的 link
-    time: "2022/10/12 10:00 ➤ 2022/10/12 11:00", //對應回傳的start_time, end_time
+    path: "",
+    time: "2022/10/12 10:00 ➤ 2022/10/12 11:00",
   },
   {
     dietitian_name: "tony",
     domain_name: "體重管理",
     session_status: "completed",
-    path: "", //對應回傳的 link
-    time: "2022/10/22 07:00 ➤ 2022/10/22 07:00", //對應回傳的start_time, end_time
+    path: "",
+    time: "2022/10/22 07:00 ➤ 2022/10/22 07:00",
   },
 ];
 
 export default function MyReservation() {
   const classes = useStyles();
+  // const [data, setData] = useState([]);
+  // useEffect(() => {
+  //   setData(getSessions(account_id)); //TODO: account_id?
+  // }, []);
 
   return (
     <div className={classes.container}>
@@ -57,6 +54,7 @@ export default function MyReservation() {
             minWidth: 200,
             width: 330,
             align: "center",
+            type: "string",
           },
           {
             id: "dietitian_name",
@@ -64,6 +62,7 @@ export default function MyReservation() {
             minWidth: 150,
             width: 150,
             align: "center",
+            type: "string",
           },
           {
             id: "domain_name",
@@ -71,6 +70,7 @@ export default function MyReservation() {
             minWidth: 150,
             width: 150,
             align: "center",
+            type: "string",
           },
           {
             id: "session_status",
@@ -78,6 +78,7 @@ export default function MyReservation() {
             minWidth: 100,
             width: 150,
             align: "center",
+            type: "string",
           },
         ]}
         hasLink

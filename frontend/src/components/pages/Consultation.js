@@ -10,8 +10,6 @@ import React, { useState, useEffect } from "react";
 import CustomTable from "../ui/CustomTable";
 import { makeStyles } from "@mui/styles";
 
-// import Icon from "./icon/index";
-
 const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: "100px",
@@ -23,15 +21,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// response format
-// id: int
-// name: str
-// gender: enums.GenderType
-// domain: Sequence[Domain]
-// available_time = Sequence[DietitianAvailableTime]
-// phone_number: str
-// introduction: str
-// work_unit: str
 const data = [
   {
     name: "erica",
@@ -65,6 +54,10 @@ const data = [
 export default function Consulation() {
   const classes = useStyles();
   const [showReserveDialog, setShowReserveDialog] = useState(false);
+  // const [data, setData] = useState([]);
+  // useEffect(() => {
+  //   setData(getDietitian()); //TODO
+  // }, []);
 
   const handleReserve = () => {
     setShowReserveDialog(true);
@@ -86,6 +79,7 @@ export default function Consulation() {
             minWidth: 100,
             width: 100,
             align: "center",
+            type: "string",
           },
           {
             id: "work_unit",
@@ -93,6 +87,7 @@ export default function Consulation() {
             minWidth: 150,
             width: 150,
             align: "center",
+            type: "string",
           },
           {
             id: "domain",
@@ -100,6 +95,7 @@ export default function Consulation() {
             minWidth: 100,
             width: 150,
             align: "center",
+            type: "list",
           },
           {
             id: "available_time",
@@ -115,6 +111,7 @@ export default function Consulation() {
             minWidth: 100,
             width: 100,
             align: "center",
+            type: "string",
           },
           {
             id: "introduction",
@@ -122,6 +119,7 @@ export default function Consulation() {
             minWidth: 150,
             width: 200,
             align: "center",
+            type: "string",
           },
           {
             id: "phone_number",
@@ -129,6 +127,7 @@ export default function Consulation() {
             minWidth: 150,
             width: 150,
             align: "center",
+            type: "string",
           },
         ]}
         hasLink
