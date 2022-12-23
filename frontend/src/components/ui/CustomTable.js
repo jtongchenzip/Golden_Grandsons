@@ -203,7 +203,8 @@ export default function CustomTable({
   };
   // handle filter time slots
   const handleSubmitFilterTime = () => {
-    if (filterDate == null) {
+    console.log("selected results", filterDate, filterTimeSlots);
+    if (filterDate == null && filterTimeSlots === []) {
       setFilterData(data);
     } else {
       const dateFormat =
@@ -290,6 +291,7 @@ export default function CustomTable({
           />
         </DialogContent>
         <DialogActions>
+          <Button>Clear Filter</Button>
           <Button
             variant="contained"
             color="primary"
