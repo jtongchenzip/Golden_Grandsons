@@ -4,7 +4,8 @@ import theme from "./theme/theme";
 import Header from "./components/Header";
 import { CssBaseline } from "@mui/material";
 import Consulation from "./components/pages/Consultation";
-import Articles from "./components/pages/Articles";
+import ArticleList from "./components/pages/ArticleList";
+import ArticleInfo from "./components/pages/ArticleInfo";
 import MyReservation from "./components/pages/MyReservation";
 import NoMatch from "./components/pages/NoMatch";
 import { createBrowserHistory } from "history";
@@ -23,7 +24,8 @@ function App() {
               <Header />
               <Switch>
                 <Route exact path="/consulation" component={Consulation} />
-                <Route exact path="/articles" component={Articles} />
+                <Route exact path="/articles" component={ArticleList} />
+                <Route exact path="/articles/:id" component={ArticleInfo} />
                 <Route exact path="/my-reservation" component={MyReservation} />
                 <Route exact path="/" component={Consulation} />
                 <Route component={NoMatch} />

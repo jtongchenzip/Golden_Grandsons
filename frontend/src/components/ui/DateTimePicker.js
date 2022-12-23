@@ -69,7 +69,7 @@ export default function DateTimePicker({
       <div className={classes.timeSlotsGroup}>
         <div className={classes.dateResult}>
           <Typography variant="body1">
-            {/* {
+            {/* { TODO: add some design?
               selectedDate.getUTCFullYear() +
                 "/" +
                 ("0" + (selectedDate.getUTCMonth() + 1)).slice(-2) +
@@ -108,7 +108,6 @@ export default function DateTimePicker({
               >
                 {slot}
               </ToggleButton>
-              //<Button>{slot}</Button>
             );
           })}
         </ToggleButtonGroup>

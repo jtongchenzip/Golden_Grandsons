@@ -23,14 +23,14 @@ const data = [
     dietitian_name: "erica",
     domain_name: "臨床營養",
     session_status: "reserved",
-    path: "",
+    path: "https://meet.google.com/whi-jubj-nrn",
     time: "2022/10/12 10:00 ➤ 2022/10/12 11:00",
   },
   {
     dietitian_name: "tony",
     domain_name: "體重管理",
     session_status: "completed",
-    path: "",
+    path: "https://meet.google.com/niq-otbb-kie",
     time: "2022/10/22 07:00 ➤ 2022/10/22 07:00",
   },
 ];
@@ -41,6 +41,10 @@ export default function MyReservation() {
   // useEffect(() => {
   //   setData(getSessions(account_id)); //TODO: account_id?
   // }, []);
+
+  const handleVideoCall = (link) => {
+    window.open(link);
+  };
 
   return (
     <div className={classes.container}>
@@ -83,7 +87,7 @@ export default function MyReservation() {
         ]}
         hasLink
         nextStep="videoCall"
-        //nextStepOnClick={handleReserve} TODO
+        nextStepOnClick={(link) => handleVideoCall(link)}
       />
     </div>
   );

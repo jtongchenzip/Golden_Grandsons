@@ -228,18 +228,15 @@ export default function CustomTable({
   };
 
   // handle next step
-  // TODO
-  const handleNextStep = () => {
+  const handleNextStep = (id, link) => {
     if (nextStep === "reserve") {
-      nextStepOnClick();
+      nextStepOnClick(); // open dialog
     } else if (nextStep === "readArticles") {
-      nextStepOnClick();
+      nextStepOnClick(id); // history push
     } else if (nextStep === "videoCall") {
-      window.open("https://meet.google.com/whi-jubj-nrn");
+      nextStepOnClick(link); // open new window
     }
   };
-  // TODO
-  useEffect(() => {});
 
   // handle page change
   useEffect(() => {
@@ -410,15 +407,26 @@ export default function CustomTable({
                         align="right"
                         className={`${classes.stickyArrowCell} ${classes.tableCellHover}`}
                       >
-                        <Link to={row[linkName]} className={classes.detailLink}>
-                          <IconButton onClick={handleNextStep}>
-                            {nextStep === "reserve" && <EventAvailableIcon />}
-                            {nextStep === "readArticles" && (
+                        {nextStep === "readArticles" ? (
+                          <Link to={row.path} className={classes.detailLink}>
+                            <IconButton
+                              onClick={(id, path) =>
+                                handleNextStep(row.id, row.path)
+                              }
+                            >
                               <ArrowForwardIcon />
-                            )}
+                            </IconButton>
+                          </Link>
+                        ) : (
+                          <IconButton
+                            onClick={(id, path) =>
+                              handleNextStep(row.id, row.path)
+                            }
+                          >
+                            {nextStep === "reserve" && <EventAvailableIcon />}
                             {nextStep === "videoCall" && <VideoCallIcon />}
                           </IconButton>
-                        </Link>
+                        )}
                       </TableCell>
                     ) : (
                       <TableCell
