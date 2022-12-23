@@ -289,6 +289,7 @@ export default function CustomTable({
             setSelectedDate={setFilterDate}
             selectedTime={filterTimeSlots}
             setSelectedTime={setFilterTimeSlots}
+            multipleTimeSlots={true}
           />
         </DialogContent>
         <DialogActions>

@@ -46,6 +46,7 @@ export default function DateTimePicker({
   setSelectedDate,
   selectedTime,
   setSelectedTime,
+  multipleTimeSlots,
 }) {
   const classes = useStyles();
   const handleSelectedTime = (
@@ -93,6 +94,7 @@ export default function DateTimePicker({
           }}
           value={selectedTime}
           onChange={handleSelectedTime}
+          exclusive={!multipleTimeSlots}
         >
           {timeSlots.map((slot) => {
             return (
