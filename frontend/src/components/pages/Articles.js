@@ -16,29 +16,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// response format
-// id: int
-// advertiser_id: int
-// post_time: datetime
-// title: str
-// context: str
 const data = [
   {
-    advertiser_id: "牙具工廠",
+    advertiser_name: "牙具工廠",
     post_time: "2022/10/12 20:00",
     title: "牙刷特賣會",
     context: "別再等啦！別再等啦！",
     path: "/articles/1", // format: `/articles/${id}`
   },
   {
-    advertiser_id: "健身工廠",
+    advertiser_name: "健身工廠",
     post_time: "2022/10/15 13:00",
     title: "健身比賽",
     context: "別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！",
     path: "/articles/2", // format: `/articles/${id}`
   },
   {
-    advertiser_id: "營養餐盒廠商",
+    advertiser_name: "營養餐盒廠商",
     post_time: "2022/10/20 14:00",
     title: "秋葵餐盒跳樓大拍賣",
     context:
@@ -49,6 +43,11 @@ const data = [
 
 export default function Articles() {
   const classes = useStyles();
+  // const [data, setData] = useState([]);
+  // useEffect(() => {
+  //   setData(getArticles()); //TODO
+  // }, []);
+
   return (
     <div className={classes.container}>
       <Typography variant="h3">Articles</Typography>
@@ -61,6 +60,7 @@ export default function Articles() {
             minWidth: 200,
             width: 200,
             align: "center",
+            type: "string",
           },
           {
             id: "advertiser_id",
@@ -68,6 +68,7 @@ export default function Articles() {
             minWidth: 150,
             width: 150,
             align: "center",
+            type: "string",
           },
           {
             id: "post_time",
@@ -75,6 +76,7 @@ export default function Articles() {
             minWidth: 200,
             width: 200,
             align: "center",
+            type: "string",
           },
           {
             id: "context",
@@ -82,6 +84,7 @@ export default function Articles() {
             minWidth: 200,
             width: 455,
             align: "center",
+            type: "string",
           },
         ]}
         hasLink

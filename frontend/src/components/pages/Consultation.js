@@ -10,8 +10,6 @@ import React, { useState, useEffect } from "react";
 import CustomTable from "../ui/CustomTable";
 import { makeStyles } from "@mui/styles";
 
-// import Icon from "./icon/index";
-
 const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: "100px",
@@ -23,21 +21,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// response format
-// id: int
-// name: str
-// gender: enums.GenderType
-// domain: Sequence[Domain]
-// available_time = Sequence[DietitianAvailableTime]
-// phone_number: str
-// introduction: str
-// work_unit: str
 const data = [
   {
     name: "erica",
     work_unit: "Cornelia Clinic",
     domain: "臨床營養",
-    available_time: ["10/12 10:00", "10/17 12:00"],
+    available_time: ["2022/10/12 10:00-11:00", "2022/10/17 12:00-13:00"],
     gender: "female",
     introduction: "10 年臨床營養經驗",
     phone_number: "0988422531",
@@ -46,7 +35,7 @@ const data = [
     name: "amber",
     work_unit: "Amber Clinic",
     domain: "孕期營養",
-    available_time: ["10/13 20:00", "10/14 09:00"],
+    available_time: ["2022/12/28 20:00-21:00", "2022/12/29 09:00-10:00"],
     gender: "female",
     introduction: "接生過 1000 名嬰兒",
     phone_number: "0914566097",
@@ -55,7 +44,7 @@ const data = [
     name: "jtc",
     work_unit: "RockClimbing Clinic",
     domain: "一般營養諮詢",
-    available_time: ["10/11 16:00", "10/12 11:00"],
+    available_time: ["2022/12/31 16:00-17:00", "2022/12/30 11:00-12:00"],
     gender: "female",
     introduction: "提供專業攀岩選手的最佳營養計畫",
     phone_number: "0907344689",
@@ -65,6 +54,10 @@ const data = [
 export default function Consulation() {
   const classes = useStyles();
   const [showReserveDialog, setShowReserveDialog] = useState(false);
+  // const [data, setData] = useState([]);
+  // useEffect(() => {
+  //   setData(getDietitian()); //TODO
+  // }, []);
 
   const handleReserve = () => {
     setShowReserveDialog(true);
@@ -86,6 +79,7 @@ export default function Consulation() {
             minWidth: 100,
             width: 100,
             align: "center",
+            type: "string",
           },
           {
             id: "work_unit",
@@ -93,14 +87,15 @@ export default function Consulation() {
             minWidth: 150,
             width: 150,
             align: "center",
+            type: "string",
           },
-
           {
             id: "domain",
             label: "Domain",
             minWidth: 100,
             width: 150,
             align: "center",
+            type: "list",
           },
           {
             id: "available_time",
@@ -108,6 +103,7 @@ export default function Consulation() {
             minWidth: 100,
             width: 200,
             align: "center",
+            type: "list",
           },
           {
             id: "gender",
@@ -115,14 +111,15 @@ export default function Consulation() {
             minWidth: 100,
             width: 100,
             align: "center",
+            type: "string",
           },
-
           {
             id: "introduction",
             label: "Introduction",
             minWidth: 150,
             width: 200,
             align: "center",
+            type: "string",
           },
           {
             id: "phone_number",
@@ -130,6 +127,7 @@ export default function Consulation() {
             minWidth: 150,
             width: 150,
             align: "center",
+            type: "string",
           },
         ]}
         hasLink

@@ -1,14 +1,7 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
-import moment from "moment";
-import { useState, useEffect } from "react";
 import { DayPicker } from "react-day-picker";
-import {
-  Button,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography,
-} from "@mui/material";
+import { ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import "./day-picker.css";
 import "react-day-picker/dist/style.css";
 
@@ -49,24 +42,19 @@ const timeSlots = [
 ];
 
 export default function DateTimePicker({
-  className = "",
-  value,
-  setValue,
-  vertical,
+  selectedDate,
+  setSelectedDate,
+  selectedTime,
+  setSelectedTime,
+  multipleTimeSlots,
 }) {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedTime, setSelectedTime] = useState([]);
   const handleSelectedTime = (
     event: React.MouseEvent<HTMLElement>,
     newFormats: string[]
   ) => {
     setSelectedTime(newFormats);
   };
-
-  useEffect(() => {
-    console.log(selectedDate, typeof selectedDate);
-  });
 
   return (
     <div className={classes.container}>
@@ -106,6 +94,7 @@ export default function DateTimePicker({
           }}
           value={selectedTime}
           onChange={handleSelectedTime}
+          exclusive={!multipleTimeSlots}
         >
           {timeSlots.map((slot) => {
             return (
