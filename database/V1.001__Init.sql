@@ -15,7 +15,6 @@ CREATE TYPE gender_type AS ENUM (
 CREATE TABLE user_account (
     id            SERIAL      PRIMARY KEY,
     name          VARCHAR     NOT NULL UNIQUE,
-    pass_hash     VARCHAR     NOT NULL,
     gender        gender_type NOT NULL,
     birthday      TIMESTAMP   NOT NULL
 );
@@ -23,7 +22,6 @@ CREATE TABLE user_account (
 CREATE TABLE dietitian_account (
     id            SERIAL      PRIMARY KEY,
     name          VARCHAR     NOT NULL UNIQUE,
-    pass_hash     VARCHAR     NOT NULL,
     gender        gender_type NOT NULL,
     phone_number  VARCHAR     NOT NULL,
     introduction  VARCHAR     NOT NULL,
@@ -55,20 +53,20 @@ CREATE TABLE session (
     domain_id       INTEGER             NOT NULL REFERENCES domain(id),
     session_status  session_status_type NOT NULL,
     link            VARCHAR             NOT NULL,
-    start_time      DATETIME            NOT NULL,
-    end_time        DATETIME            NOT NULL
+    start_time      TIMESTAMP            NOT NULL,
+    end_time        TIMESTAMP            NOT NULL
 );
 
 CREATE TABLE advertiser_account (
     id            SERIAL      PRIMARY KEY,
     name          VARCHAR     NOT NULL UNIQUE,
-    pass_hash     VARCHAR     NOT NULL 
+    introduction  VARCHAR     NOT NULL 
 );
 
 CREATE TABLE article (
     id            SERIAL      PRIMARY KEY,
     advertiser_id INTEGER     NOT NULL REFERENCES advertiser_account(id),
-    post_time     DATETIME    NOT NULL,
+    post_time     TIMESTAMP    NOT NULL,
     title         VARCHAR     NOT NULL,
     context       VARCHAR     NOT NULL
 );
