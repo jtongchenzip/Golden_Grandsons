@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 		width: "95%",
 	},
 	authorTitle: {
-		marginBottom: "10px",
+		marginBottom: "5%",
 	},
 	authorName: {
 		color: "#656565",
