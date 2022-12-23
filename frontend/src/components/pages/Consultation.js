@@ -94,7 +94,6 @@ export default function Consulation() {
             width: 150,
             align: "center",
           },
-
           {
             id: "domain",
             label: "Domain",
@@ -117,7 +116,6 @@ export default function Consulation() {
             width: 100,
             align: "center",
           },
-
           {
             id: "introduction",
             label: "Introduction",

@@ -203,17 +203,27 @@ export default function CustomTable({
   };
   // handle filter time slots
   const handleSubmitFilterTime = () => {
-    const filterTime = filterTimeSlots.map((slot) =>
-      String(filterDate + " " + slot)
-    );
-    console.log("filter time", filterTime);
-    const filterResult = data.filter((record) => {
-      return record.available_time.some((slot) => {
-        return filterTime.includes(slot);
+    if (filterDate == null) {
+      setFilterData(data);
+    } else {
+      const dateFormat =
+        filterDate.getFullYear() +
+        "/" +
+        ("0" + (filterDate.getMonth() + 1)).slice(-2) +
+        "/" +
+        ("0" + filterDate.getDate()).slice(-2);
+      const filterTime = filterTimeSlots.map((slot) =>
+        String(dateFormat + " " + slot)
+      );
+      console.log("filter time", filterTime);
+      const filterResult = data.filter((record) => {
+        return record.available_time.some((slot) => {
+          return filterTime.includes(slot);
+        });
       });
-    });
-    console.log("filterTimeResult", filterResult);
-    setFilterData(filterResult);
+      console.log("filterTimeResult", filterResult);
+      setFilterData(filterResult);
+    }
     setShowFilterTime(false);
   };
 
