@@ -98,6 +98,7 @@ export default function Consulation() {
 	const [onClickID, setOnClickID] = useState("");
 	const [resSession, setResSession] = useState(null);
 	const [showSucsDialog, setShowSucsDialog] = useState(false);
+	const [availableSlots, setAvailableSlots] = useState(null);
 	// const [data, setData] = useState([]);
 	// useEffect(() => {
 	//   setData(getDietitian()); //TODO
@@ -261,6 +262,8 @@ export default function Consulation() {
 						selectedTime={filterTimeSlots}
 						setSelectedTime={setFilterTimeSlots}
 						multipleTimeSlots={false}
+						timeSlots={availableSlots}
+						mode="availableSlots"
 					/>
 				</DialogContent>
 				<DialogActions>
