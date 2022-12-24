@@ -15,16 +15,15 @@
 
 ### Edit necessary files
 1. copy `.env.example` and rename the file name to `.env`
-2. copy `docker-compose.yaml.example` and rename the file name to `docker-compose.yaml`
-3. edit `.env` and `docker-compose.yaml` to fit your environment
+2. edit `.env` to fit your environment
 
-### Create Database
+<!-- ### Create Database
 1. In your directory, run `docker-compose up -d`
 2. If the database doesn't create table automatically, run  
     ```
     docker exec -it test_postgres psql -u test_user -w db_project -f docker-entrypoint-initdb.d/schema.sql
     ```
-   You could check the database through psql or dbeaver
+   You could check the database through psql or dbeaver -->
 
 ### Rebuild Database
 1. `docker rm db_project_database`
