@@ -90,10 +90,17 @@ export default function DateTimePicker({
         const targetIndex = formattedTimeSlots.findIndex(
           (slot) => slot.day === date
         );
-        setDisplayedTimeSlots(
-          formattedTimeSlots[targetIndex].slots.sort(compareFunction)
-        );
-        console.log("available time", formattedTimeSlots[targetIndex].slots);
+        if (targetIndex !== -1) {
+          setDisplayedTimeSlots(
+            formattedTimeSlots[targetIndex].slots.sort(compareFunction)
+          );
+        } else {
+          // if date is not available
+          setDisplayedTimeSlots([]);
+        }
+      } else {
+        // if date is undefined
+        setDisplayedTimeSlots([]);
       }
     }
   }, [formattedTimeSlots, selectedDate]);
