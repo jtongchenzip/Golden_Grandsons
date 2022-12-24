@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { Typography, Divider } from "@mui/material";
+import { getArticle } from "../../actions/actions";
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -17,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "flex-start",
-		// justifyContent: "flex-start",
 	},
 	rightHalf: {
 		width: "30%",
@@ -45,26 +45,30 @@ const useStyles = makeStyles((theme) => ({
 export default function ArticleInfo() {
 	const { id } = useParams(); // id for article
 	const classes = useStyles();
+	const [article, setArticle] = useState({});
 
 	useEffect(() => {
-		console.log("article id", id);
-	});
+		const res = getArticle(id);
+		setArticle(res);
+		console.log("article", res);
+	}, [id]);
 
 	return (
 		<div className={classes.container}>
 			<div className={classes.leftHalf}>
-				<Typography variant="h3">title</Typography>
+				<Typography variant="h3">{article.title}</Typography>
 				<Typography variant="h4" className={classes.authorName}>
-					AUTHOR ‧ DATE
+					{article.advertiser.name} ‧ {article.post_time}{" "}
+					{/*TODO: change time fornat*/}
 				</Typography>
 				<Divider className={classes.divider} />
-				<Typography>content</Typography>
+				<Typography>{article.context}</Typography>
 			</div>
 			<div className={classes.rightHalf}>
 				<Typography variant="h4" className={classes.authorTitle}>
-					About XXX
+					About {article.advertiser.name}
 				</Typography>
-				<Typography>hihihi</Typography>
+				<Typography>{article.advertiser.introduction}</Typography>
 			</div>
 		</div>
 	);

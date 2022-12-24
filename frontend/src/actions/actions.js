@@ -87,17 +87,18 @@ const getSessions = (account_id) => {
 const getArticle = async (id) => {
 	try {
 		const res = await agent.get(`/article/${id}`);
-		const { data } = res.data;
-		return data;
+		// console.log(res);
+		const { payload } = res.data;
+		return payload;
 	} catch (e) {
-		console.log(e.response); // data / status / header
+		console.log(e.response);
 		return e.response;
 	}
 };
 
-const postSession = async (payload) => {
+const postSession = async (data) => {
 	try {
-		const url = `/session?user_id=${payload.user_id}&dietitian_id=${payload.dietitian_id}&domain_id=${payload.domain_id}&start_time=${payload.start_time}&end_time=${payload.end_time}`;
+		const url = `/session?user_id=${data.user_id}&dietitian_id=${data.dietitian_id}&domain_id=${data.domain_id}&start_time=${data.start_time}&end_time=${data.end_time}`;
 		const res = await agent.post(url);
 		// const res = await agent.post("/session", null, {
 		// 	params: {
@@ -108,8 +109,8 @@ const postSession = async (payload) => {
 		// 		end_time: payload.end_time,
 		// 	},
 		// });
-		const { data } = res.data;
-		return data;
+		const { payload } = res.data;
+		return payload;
 	} catch (e) {
 		console.log(e.response);
 		return e.response;
