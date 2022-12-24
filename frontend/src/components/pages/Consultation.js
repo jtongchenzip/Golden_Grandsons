@@ -96,7 +96,7 @@ export default function Consulation() {
 	const [filterDate, setFilterDate] = useState("");
 	const [disabled, setDisabled] = useState(true);
 	const [onClickID, setOnClickID] = useState("");
-	const [resSession, setResSession] = useState({});
+	const [resSession, setResSession] = useState(null);
 	const [showSucsDialog, setShowSucsDialog] = useState(false);
 	// const [data, setData] = useState([]);
 	// useEffect(() => {
@@ -113,7 +113,7 @@ export default function Consulation() {
 		setShowReserveDialog(true);
 	};
 
-	const handleSubmitFilterTime = () => {
+	const handleSubmitFilterTime = async () => {
 		// console.log("selected results", filterDate, filterTimeSlots);
 		const dateFormat =
 			filterDate.getFullYear() +
@@ -141,9 +141,10 @@ export default function Consulation() {
 			start_time: startFilterTime,
 			end_time: endFilterTime,
 		};
-		const res = postSession(data);
-		setResSession(res); // TODO: add success popup
-		setShowSucsDialog(true);
+		const res = await postSession(data);
+		setResSession(res);
+		// console.log(resSession); // TODO: add success popup
+		// setShowSucsDialog(true);
 
 		setShowReserveDialog(false);
 		setDisabled(true);

@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 		borderRadius: "20px",
 		backgroundColor: "#eae0d3",
 		padding: "20px",
+		textAlign: "left",
 	},
 	divider: {
 		margin: "10px 0",
@@ -45,31 +46,36 @@ const useStyles = makeStyles((theme) => ({
 export default function ArticleInfo() {
 	const { id } = useParams(); // id for article
 	const classes = useStyles();
-	const [article, setArticle] = useState({});
+	const [article, setArticle] = useState(null);
 
 	useEffect(() => {
-		const res = getArticle(id);
-		setArticle(res);
-		console.log("article", res);
+		async function fetchData() {
+			const res = await getArticle(id);
+			setArticle(res);
+		}
+		fetchData();
 	}, [id]);
 
 	return (
-		<div className={classes.container}>
-			<div className={classes.leftHalf}>
-				<Typography variant="h3">{article.title}</Typography>
-				<Typography variant="h4" className={classes.authorName}>
-					{article.advertiser.name} ‧ {article.post_time}{" "}
-					{/*TODO: change time fornat*/}
-				</Typography>
-				<Divider className={classes.divider} />
-				<Typography>{article.context}</Typography>
-			</div>
-			<div className={classes.rightHalf}>
-				<Typography variant="h4" className={classes.authorTitle}>
-					About {article.advertiser.name}
-				</Typography>
-				<Typography>{article.advertiser.introduction}</Typography>
-			</div>
+		<div>
+			{article && (
+				<div className={classes.container}>
+					<div className={classes.leftHalf}>
+						<Typography variant="h3">{article.title}</Typography>
+						<Typography variant="h4" className={classes.authorName}>
+							{article.advertiser.name} ‧ {article.post_time.replace("T", " ")}
+						</Typography>
+						<Divider className={classes.divider} />
+						<Typography>{article.context}</Typography>
+					</div>
+					<div className={classes.rightHalf}>
+						<Typography variant="h4" className={classes.authorTitle}>
+							About {article.advertiser.name}
+						</Typography>
+						<Typography>{article.advertiser.introduction}</Typography>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }

@@ -87,7 +87,6 @@ const getSessions = (account_id) => {
 const getArticle = async (id) => {
 	try {
 		const res = await agent.get(`/article/${id}`);
-		// console.log(res);
 		const { payload } = res.data;
 		return payload;
 	} catch (e) {
