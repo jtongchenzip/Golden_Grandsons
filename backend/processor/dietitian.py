@@ -1,4 +1,4 @@
-from base.content_formatter import error_content, data_content
+from base.content_formatter import error_content, payload_content
 from base.do import DietitianAccount
 from database import database
 from fastapi.responses import JSONResponse
@@ -20,10 +20,10 @@ async def get_dietitian(dietitian_id: int):
 
     domains = await get_dietitian_domain(dietitian_id=row[0])
     available_times = await get_dietitian_time(dietitian_id=row[0])
-    data = [DietitianAccount(id=row[0], name=row[1], gender=row[2], domain=domains, available_time=available_times,
+    payload = [DietitianAccount(id=row[0], name=row[1], gender=row[2], domain=domains, available_time=available_times,
                              phone_number=row[3], introduction=row[4], work_unit=row[5])]
     
-    return JSONResponse(status_code=200, content=data_content(data=data))
+    return JSONResponse(status_code=200, content=payload_content(payload=payload))
 
 @router.get("/dietitian", tags=["dietitian"], summary="Browse Dietitian Accounts")
 async def browse_dietitian():
@@ -33,11 +33,11 @@ async def browse_dietitian():
     if rows is None:
         return JSONResponse(status_code=404, content=error_content(message="DietitianAccountNotFound"))
 
-    data = []
+    payload = []
     for row in rows:
         domains = await get_dietitian_domain(dietitian_id=row[0])
         available_times = await get_dietitian_time(dietitian_id=row[0])
-        data.append(DietitianAccount(id=row[0], name=row[1], gender=row[2], domain=domains, available_time=available_times,
+        payload.append(DietitianAccount(id=row[0], name=row[1], gender=row[2], domain=domains, available_time=available_times,
                                      phone_number=row[3], introduction=row[4], work_unit=row[5]))
     
-    return JSONResponse(status_code=200, content=data_content(data=data))
+    return JSONResponse(status_code=200, content=payload_content(payload=payload))

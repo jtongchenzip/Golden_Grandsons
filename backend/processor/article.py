@@ -1,4 +1,4 @@
-from base.content_formatter import error_content, data_content
+from base.content_formatter import error_content, payload_content
 from base.do import Article
 from database import database
 from fastapi.responses import JSONResponse
@@ -19,22 +19,22 @@ async def get_article(article_id: int):
         return JSONResponse(status_code=404, content=error_content(message="ArticleNotFound"))
 
     advertiser = await get_article_advertiser(article_id=row[0])
-    data = Article(id=row[0], advertiser=advertiser, post_time=row[2], title=row[3], context=row[4])
+    payload = Article(id=row[0], advertiser=advertiser, post_time=row[2], title=row[3], context=row[4])
     
-    return JSONResponse(status_code=200, content=data_content(data=data))
+    return JSONResponse(status_code=200, content=payload_content(payload=payload))
 
 
 @router.get("/article", tags=["article"], summary="Browse Articles")
-async def browse_article():
+async def browse_article(filter: str=None):
     database.cur.execute(f"SELECT id, advertiser_id, post_time, title, context FROM article")
     rows = database.cur.fetchall()
 
     if rows is None:
         return JSONResponse(status_code=404, content=error_content(message="ArticleNotFound"))
 
-    data = []
+    payload = []
     for row in rows:
         advertiser = await get_article_advertiser(article_id=row[0])
-        data.append(Article(id=row[0], advertiser=advertiser, post_time=row[2], title=row[3], context=row[4]))
+        payload.append(Article(id=row[0], advertiser=advertiser, post_time=row[2], title=row[3], context=row[4]))
     
-    return JSONResponse(status_code=200, content=data_content(data=data))
+    return JSONResponse(status_code=200, content=payload_content(payload=payload))
