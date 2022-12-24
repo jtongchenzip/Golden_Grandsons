@@ -1,11 +1,7 @@
 from database import database
 from typing import List, Sequence
 from base.do import Domain, DietitianAvailableTime, AdvertiserAccount
-
-async def get_domain(domain_id: int) -> Domain:
-    database.cur.execute(f"SELECT id, name FROM domain where id={domain_id}")
-    row = database.cur.fetchone()
-    return Domain(id=row[0], name=row[1])
+from util.domain import *
 
 async def get_dietitian_time(dietitian_id: int) -> Sequence[DietitianAvailableTime]:
     database.cur.execute(f"SELECT id, dietitian_id, available_day, start_time, end_time FROM dietitian_available_time where dietitian_id={dietitian_id}")
@@ -27,13 +23,3 @@ async def get_dietitian_name(dietitian_id: int) -> str:
     database.cur.execute(f"SELECT * FROM dietitian_account where id={dietitian_id}")
     row = database.cur.fetchone()
     return row[1]
-
-async def get_domain_name(domain_id: int) -> str:
-    database.cur.execute(f"SELECT id, name FROM domain where id={domain_id}")
-    row = database.cur.fetchone()
-    return row[1]
-
-async def get_article_advertiser(article_id: int) -> AdvertiserAccount:
-    database.cur.execute(f"SELECT id, name, introduction FROM advertiser_account where id={article_id}")
-    row = database.cur.fetchone()
-    return AdvertiserAccount(id=row[0], name=row[1], introduction=row[2])
