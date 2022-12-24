@@ -14,6 +14,7 @@ import React, { useState, useEffect } from "react";
 import CustomTable from "../ui/CustomTable";
 import { makeStyles } from "@mui/styles";
 import DateTimePicker from "../ui/DateTimePicker";
+import { postSession } from "../../actions/actions";
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -63,7 +64,12 @@ const data = [
 	},
 ];
 
-const allTopic = ["臨床營養", "體重管理", "孕期營養", "一般營養諮詢"];
+const allTopic = [
+	{ id: 0, name: "臨床營養" },
+	{ id: 1, name: "體重管理" },
+	{ id: 2, name: "孕期營養" },
+	{ id: 3, name: "一般營養諮詢" },
+];
 const timeSlots = [
 	"09:00-10:00",
 	"10:00-11:00",
@@ -92,7 +98,7 @@ export default function Consulation() {
 	// }, []);
 
 	useEffect(() => {
-		if (!filterDate || !filterTimeSlots || !topic) {
+		if (!filterDate || !filterTimeSlots || (!topic && topic !== 0)) {
 			setDisabled(true);
 		} else setDisabled(false);
 	}, [disabled, filterDate, filterTimeSlots, topic]);
@@ -102,21 +108,30 @@ export default function Consulation() {
 	};
 
 	const handleSubmitFilterTime = () => {
-		console.log("selected results", filterDate, filterTimeSlots);
+		// console.log("selected results", filterDate, filterTimeSlots);
 		const dateFormat =
 			filterDate.getFullYear() +
 			"/" +
 			("0" + (filterDate.getMonth() + 1)).slice(-2) +
 			"/" +
 			("0" + filterDate.getDate()).slice(-2);
-		const filterTime = String(dateFormat + " " + filterTimeSlots);
-		console.log("filter time", filterTime);
+
+		const startFilterTime = String(
+			dateFormat + " " + filterTimeSlots.split("-")[0]
+		);
+		const endFilterTime = String(
+			dateFormat + " " + filterTimeSlots.split("-")[1]
+		);
+		// console.log("start time", startFilterTime);
+		// console.log("end time", endFilterTime);
+
+		// post session here (dietitian id?)
 
 		setShowReserveDialog(false);
 		setDisabled(true);
 		setTopic("");
 		setFilterDate("");
-		setFilterTimeSlots([]);
+		setFilterTimeSlots("");
 	};
 
 	const handleSubmitCancel = () => {
@@ -124,7 +139,7 @@ export default function Consulation() {
 		setDisabled(true);
 		setTopic("");
 		setFilterDate("");
-		setFilterTimeSlots([]);
+		setFilterTimeSlots("");
 	};
 
 	const handleTopicChange = (event) => {
@@ -211,10 +226,10 @@ export default function Consulation() {
 							label="諮詢主題"
 							onChange={handleTopicChange}
 						>
-							{allTopic.map((item) => {
+							{allTopic.map(({ id, name }) => {
 								return (
-									<MenuItem value={item} key={item}>
-										{item}
+									<MenuItem value={id} key={id}>
+										{name}
 									</MenuItem>
 								);
 							})}

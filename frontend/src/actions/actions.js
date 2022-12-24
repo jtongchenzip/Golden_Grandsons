@@ -94,8 +94,15 @@ const getArticle = async (id) => {
 	}
 };
 
-const sendReservation = () => {};
+const postSession = async (payload) => {
+	try {
+		const res = await agent.post("/session", payload);
+		const { data } = res.data;
+		return data;
+	} catch (e) {
+		console.log(e.response);
+		return e.response;
+	}
+};
 
-const getReservation = () => {};
-
-export { getDietitian, getArticles, getSessions };
+export { getDietitian, getArticles, getSessions, getArticle, postSession };
