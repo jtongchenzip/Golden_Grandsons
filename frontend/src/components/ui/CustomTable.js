@@ -211,7 +211,9 @@ export default function CustomTable({
     const searchResult = data.filter((record) => {
       const values = Object.values(record);
       return values.some((value) => {
-        return value.includes(String(search));
+        if (typeof value === "string") {
+          return value.includes(String(search));
+        }
       });
     });
     setFilterData(searchResult);
