@@ -53,7 +53,7 @@ export default function ArticleInfo() {
 	return (
 		<div className={classes.container}>
 			<div className={classes.leftHalf}>
-				<Typography variant="h1">title</Typography>
+				<Typography variant="h3">title</Typography>
 				<Typography variant="h4" className={classes.authorName}>
 					AUTHOR ‧ DATE
 				</Typography>
