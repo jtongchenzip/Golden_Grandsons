@@ -15,7 +15,6 @@ import {
   InputAdornment,
   IconButton,
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogActions,
 } from "@mui/material";
@@ -152,6 +151,12 @@ const useStyles = makeStyles((theme) => ({
   textLink: {
     textDecoration: "none",
     color: theme.palette.primary.main,
+    "&:hover": {
+      color: theme.palette.primary.light,
+    },
+    "&:active": {
+      color: theme.palette.primary.dark,
+    },
   },
 }));
 
@@ -181,6 +186,7 @@ export default function CustomTable({
   nextStep,
   nextStepOnClick,
   setOnClickID,
+  setShowDialog,
 }) {
   const classes = useStyles();
   const [curPage, setPage] = useState(0);
@@ -191,7 +197,6 @@ export default function CustomTable({
   const [filterDate, setFilterDate] = useState("");
   const [filterData, setFilterData] = useState(data);
   const [showFilterTime, setShowFilterTime] = useState(false);
-
   const handleChangePage = (event, newPage) => {
     if (
       newPage + 1 <= Math.ceil(filterData.length / rowsPerPage) &&
@@ -396,8 +401,9 @@ export default function CustomTable({
                     className={`${classes.row} ${classes.tableBodyRow}`}
                   >
                     {columns.map((column) => {
-                      if (column.type === "link") {
-                        const link = row[column.link_id];
+                      if (column.type === "dialog") {
+                        // click link to open dialog (weird alternative plan)
+                        //const link = row[column.link_id];
                         const value = row[column.id];
                         return (
                           <React.Fragment key={`${column.id}-${column.label}`}>
@@ -410,7 +416,15 @@ export default function CustomTable({
                               }}
                               align={column.align}
                             >
-                              {column.isExternal ? (
+                              <Link
+                                onClick={() => setShowDialog(true)}
+                                className={classes.textLink}
+                              >
+                                {column.format && typeof value === "number"
+                                  ? column.format(value)
+                                  : value}
+                              </Link>
+                              {/* {column.isExternal ? (
                                 <a
                                   href={link}
                                   className={classes.textLink}
@@ -422,12 +436,19 @@ export default function CustomTable({
                                     : value}
                                 </a>
                               ) : (
-                                <Link to={link} className={classes.textLink}>
+                                <Link
+                                  //to={link}
+                                  onClick={() => {
+                                    history.push(link);
+                                    window.location.reload();
+                                  }}
+                                  className={classes.textLink}
+                                >
                                   {column.format && typeof value === "number"
                                     ? column.format(value)
                                     : value}
                                 </Link>
-                              )}
+                              )} */}
                             </TableCell>
                           </React.Fragment>
                         );

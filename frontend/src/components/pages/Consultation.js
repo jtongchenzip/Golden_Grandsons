@@ -15,6 +15,7 @@ import CustomTable from "../ui/CustomTable";
 import { makeStyles } from "@mui/styles";
 import DateTimePicker from "../ui/DateTimePicker";
 import { postSession } from "../../actions/actions";
+import DietitianInfo from "./DietitianInfo";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -44,6 +45,7 @@ const data = [
     gender: "female",
     introduction: "10 年臨床營養經驗",
     phone_number: "0988422531",
+    link_id: "/dietitian/1",
   },
   {
     id: 2,
@@ -54,6 +56,7 @@ const data = [
     gender: "female",
     introduction: "接生過 1000 名嬰兒",
     phone_number: "0914566097",
+    link_id: "/dietitian/2",
   },
   {
     id: 3,
@@ -64,6 +67,7 @@ const data = [
     gender: "female",
     introduction: "提供專業攀岩選手的最佳營養計畫",
     phone_number: "0907344689",
+    link_id: "/dietitian/3",
   },
 ];
 
@@ -96,6 +100,7 @@ export default function Consulation() {
   const [filterDate, setFilterDate] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [onClickID, setOnClickID] = useState("");
+  const [showDietitianInfo, setShowDietitianInfo] = useState(false);
   // const [data, setData] = useState([]);
   // useEffect(() => {
   //   setData(getDietitian()); //TODO
@@ -162,7 +167,7 @@ export default function Consulation() {
             minWidth: 100,
             width: 100,
             align: "center",
-            type: "string",
+            type: "dialog",
           },
           {
             id: "work_unit",
@@ -217,7 +222,14 @@ export default function Consulation() {
         nextStep="reserve"
         nextStepOnClick={handleReserve}
         setOnClickID={setOnClickID}
+        setShowDialog={setShowDietitianInfo}
       />
+      <DietitianInfo
+        showDialog={showDietitianInfo}
+        setShowDialog={setShowDietitianInfo}
+        onClickID={onClickID}
+      />
+
       <Dialog open={showReserveDialog} maxWidth="md" fullWidth={true}>
         <DialogTitle>
           <Typography variant="h4">請選擇諮詢主題與時間</Typography>
