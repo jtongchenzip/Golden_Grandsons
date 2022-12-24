@@ -64,11 +64,11 @@ const data = [
 	},
 ];
 
-const allTopic = [
-	{ id: 0, name: "臨床營養" },
-	{ id: 1, name: "體重管理" },
-	{ id: 2, name: "孕期營養" },
-	{ id: 3, name: "一般營養諮詢" },
+const allDomain = [
+	{ id: 1, name: "臨床營養" },
+	{ id: 2, name: "體重管理" },
+	{ id: 3, name: "孕期營養" },
+	{ id: 4, name: "一般營養諮詢" },
 ];
 const timeSlots = [
 	"09:00-10:00",
@@ -117,15 +117,23 @@ export default function Consulation() {
 			("0" + filterDate.getDate()).slice(-2);
 
 		const startFilterTime = String(
-			dateFormat + " " + filterTimeSlots.split("-")[0]
+			dateFormat + " " + filterTimeSlots.split("-")[0] + ":00"
 		);
 		const endFilterTime = String(
-			dateFormat + " " + filterTimeSlots.split("-")[1]
+			dateFormat + " " + filterTimeSlots.split("-")[1] + ":00"
 		);
 		// console.log("start time", startFilterTime);
-		// console.log("end time", endFilterTime);
+
+		const data = {
+			user_id: 1,
+			dietitian_id: 2,
+			domain_id: topic,
+			start_time: startFilterTime,
+			end_time: endFilterTime,
+		};
 
 		// post session here (dietitian id?)
+		// const res = postSession(data);
 
 		setShowReserveDialog(false);
 		setDisabled(true);
@@ -226,7 +234,7 @@ export default function Consulation() {
 							label="諮詢主題"
 							onChange={handleTopicChange}
 						>
-							{allTopic.map(({ id, name }) => {
+							{allDomain.map(({ id, name }) => {
 								return (
 									<MenuItem value={id} key={id}>
 										{name}
