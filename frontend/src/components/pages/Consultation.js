@@ -69,7 +69,7 @@ export default function Consulation() {
 	const classes = useStyles();
 	const [showReserveDialog, setShowReserveDialog] = useState(false);
 	const [topic, setTopic] = useState("");
-	const [filterTimeSlots, setFilterTimeSlots] = useState([]);
+	const [filterTimeSlots, setFilterTimeSlots] = useState("");
 	const [filterDate, setFilterDate] = useState("");
 	const [disabled, setDisabled] = useState(true);
 	// const [data, setData] = useState([]);
@@ -78,7 +78,7 @@ export default function Consulation() {
 	// }, []);
 
 	useEffect(() => {
-		if (!filterDate || filterTimeSlots.length === 0 || !topic) {
+		if (!filterDate || !filterTimeSlots || !topic) {
 			setDisabled(true);
 		} else setDisabled(false);
 	}, [disabled, filterDate, filterTimeSlots, topic]);
