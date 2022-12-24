@@ -1,6 +1,6 @@
 from database import database
-from typing import List, Sequence
-from base.do import Domain, DietitianAvailableTime, AdvertiserAccount
+from typing import Sequence
+from base.do import Domain, DietitianAvailableTime
 from util.domain import *
 
 async def get_dietitian_time(dietitian_id: int) -> Sequence[DietitianAvailableTime]:

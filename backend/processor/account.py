@@ -1,4 +1,4 @@
-from base.content_formatter import * 
+from base.content_formatter import data_content, error_content 
 from base.do import UserAccount, Session
 from database import database
 from fastapi.responses import JSONResponse
