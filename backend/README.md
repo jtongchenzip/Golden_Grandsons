@@ -26,6 +26,10 @@
     ```
    You could check the database through psql or dbeaver
 
+### Rebuild Database
+1. `docker rm db_project_database`
+2. `docker-compose up`
+
 ### Start backend service
 1. Run service  
     ```
