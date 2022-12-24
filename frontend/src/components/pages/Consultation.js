@@ -64,6 +64,20 @@ const data = [
 ];
 
 const allTopic = ["臨床營養", "體重管理", "孕期營養", "一般營養諮詢"];
+const timeSlots = [
+  "09:00-10:00",
+  "10:00-11:00",
+  "11:00-12:00",
+  "12:00-13:00",
+  "13:00-14:00",
+  "14:00-15:00",
+  "15:00-16:00",
+  "16:00-17:00",
+  "17:00-18:00",
+  "18:00-19:00",
+  "19:00-20:00",
+  "20:00-21:00",
+];
 
 export default function Consultation() {
   const classes = useStyles();
@@ -78,7 +92,11 @@ export default function Consultation() {
   // }, []);
 
   useEffect(() => {
-    if (!filterDate || filterTimeSlots.length === 0 || !topic) {
+    if (
+      !filterDate ||
+      (filterTimeSlots && filterTimeSlots.length === 0) ||
+      !topic
+    ) {
       setDisabled(true);
     } else setDisabled(false);
   }, [disabled, filterDate, filterTimeSlots, topic]);
@@ -212,6 +230,7 @@ export default function Consultation() {
             selectedTime={filterTimeSlots}
             setSelectedTime={setFilterTimeSlots}
             multipleTimeSlots={false}
+            timeSlots={timeSlots}
           />
         </DialogContent>
         <DialogActions>

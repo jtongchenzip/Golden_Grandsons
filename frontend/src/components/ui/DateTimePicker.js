@@ -53,23 +53,6 @@ export default function DateTimePicker({
         />
       </div>
       <div className={classes.timeSlotsGroup}>
-        <div className={classes.dateResult}>
-          <Typography variant="body1">
-            {/* { TODO: add some design?
-              selectedDate.getUTCFullYear() +
-                "/" +
-                ("0" + (selectedDate.getUTCMonth() + 1)).slice(-2) +
-                "/" +
-                ("0" + selectedDate.getUTCDate()).slice(-2)
-              // " " +
-              // ("0" + selectedDate.getUTCHours()).slice(-2) +
-              // ":" +
-              // ("0" + selectedDate.getUTCMinutes()).slice(-2) +
-              // ":" +
-              // ("0" + selectedDate.getUTCSeconds()).slice(-2)}
-            } */}
-          </Typography>
-        </div>
         <ToggleButtonGroup
           sx={{
             display: "grid",
