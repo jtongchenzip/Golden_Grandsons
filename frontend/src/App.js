@@ -28,7 +28,7 @@ function App() {
             <div>
               <Header />
               <Switch>
-                <Route exact path="/consulation" component={Consultation} />
+                <Route exact path="/consultation" component={Consultation} />
                 <Route exact path="/articles" component={ArticleList} />
                 <Route exact path="/articles/:id" component={ArticleInfo} />
                 <Route exact path="/my-reservation" component={MyReservation} />
