@@ -96,13 +96,15 @@ export default function Consulation() {
 	const [filterDate, setFilterDate] = useState("");
 	const [disabled, setDisabled] = useState(true);
 	const [onClickID, setOnClickID] = useState("");
+	const [resSession, setResSession] = useState({});
+	const [showSucsDialog, setShowSucsDialog] = useState(false);
 	// const [data, setData] = useState([]);
 	// useEffect(() => {
 	//   setData(getDietitian()); //TODO
 	// }, []);
 
 	useEffect(() => {
-		if (!filterDate || !filterTimeSlots || (!topic && topic !== 0)) {
+		if (!filterDate || !filterTimeSlots || !topic) {
 			setDisabled(true);
 		} else setDisabled(false);
 	}, [disabled, filterDate, filterTimeSlots, topic]);
@@ -121,23 +123,27 @@ export default function Consulation() {
 			("0" + filterDate.getDate()).slice(-2);
 
 		const startFilterTime = String(
-			dateFormat + " " + filterTimeSlots.split("-")[0] + ":00"
+			dateFormat.replaceAll("/", "%2F") +
+				"%20" +
+				(filterTimeSlots.split("-")[0] + ":00").replaceAll(":", "%3A")
 		);
 		const endFilterTime = String(
-			dateFormat + " " + filterTimeSlots.split("-")[1] + ":00"
+			dateFormat.replaceAll("/", "%2F") +
+				"%20" +
+				(filterTimeSlots.split("-")[1] + ":00").replaceAll(":", "%3A")
 		);
 		// console.log("start time", startFilterTime);
 
 		const data = {
 			user_id: 1,
-			dietitian_id: 2,
+			dietitian_id: onClickID,
 			domain_id: topic,
 			start_time: startFilterTime,
 			end_time: endFilterTime,
 		};
-
-		// post session here (dietitian id?)
-		// const res = postSession(data);
+		const res = postSession(data);
+		setResSession(res); // TODO: add success popup
+		setShowSucsDialog(true);
 
 		setShowReserveDialog(false);
 		setDisabled(true);
@@ -259,6 +265,23 @@ export default function Consulation() {
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleSubmitCancel}>Cancel</Button>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={handleSubmitFilterTime}
+						disableElevation
+						disabled={disabled}
+					>
+						Submit
+					</Button>
+				</DialogActions>
+			</Dialog>
+			<Dialog open={showSucsDialog} maxWidth="md" fullWidth={true}>
+				<DialogTitle>
+					<Typography variant="h4">預約成功</Typography>
+				</DialogTitle>
+				<DialogContent></DialogContent>
+				<DialogActions>
 					<Button
 						variant="contained"
 						color="primary"

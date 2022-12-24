@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const agent = axios.create({ baseURL: "http://localhost:8000" });
-// TODO: how to connect to BE :D ....? :'( hope this works
+const agent = axios.create({
+	baseURL: "http://localhost:8000",
+});
 
 const getDietitian = () => {
 	// const config = {};
@@ -96,7 +97,17 @@ const getArticle = async (id) => {
 
 const postSession = async (payload) => {
 	try {
-		const res = await agent.post("/session", payload);
+		const url = `/session?user_id=${payload.user_id}&dietitian_id=${payload.dietitian_id}&domain_id=${payload.domain_id}&start_time=${payload.start_time}&end_time=${payload.end_time}`;
+		const res = await agent.post(url);
+		// const res = await agent.post("/session", null, {
+		// 	params: {
+		// 		user_id: payload.user_id,
+		// 		dietian_id: payload.dietian_id,
+		// 		domain_id: payload.domain_id,
+		// 		start_time: payload.start_time,
+		// 		end_time: payload.end_time,
+		// 	},
+		// });
 		const { data } = res.data;
 		return data;
 	} catch (e) {
