@@ -15,10 +15,6 @@ tags_metadata = [
 
 app = FastAPI(openapi_tags=tags_metadata)
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
 @app.get("/account/{account_id}", tags=["account"], summary="Get one User Account")
 async def get_account(account_id: int):
     database.cur.execute(f"SELECT id, name, gender, birthday FROM user_account where id = {account_id}")
