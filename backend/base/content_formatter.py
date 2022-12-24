@@ -2,18 +2,16 @@ from fastapi.encoders import jsonable_encoder
 
 def error_content(message: str):
     res = {
-        "response": {
-            "data": None,
-            "error": message }
+        "payload": None,
+        "error": message
     }
     content = jsonable_encoder(res)
     return content
 
-def data_content(data):
+def payload_content(payload):
     res = {
-        "response": {
-            "data": data,
-            "error": None }
+        "payload": payload,
+        "error": None 
     }
     content = jsonable_encoder(res)
     return content
