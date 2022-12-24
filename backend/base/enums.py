@@ -1,4 +1,3 @@
-# import typing
 import enum
 
 class GenderType(str, enum.Enum):

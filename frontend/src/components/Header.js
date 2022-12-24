@@ -33,8 +33,8 @@ const Header = () => {
   useEffect(() => {
     setItemList([
       {
-        text: "Consulation",
-        path: "/consulation",
+        text: "Consultation",
+        path: "/consultation",
       },
       {
         text: "Articles",

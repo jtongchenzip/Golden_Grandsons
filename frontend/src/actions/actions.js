@@ -37,7 +37,7 @@ const getArticles = () => {
 	// const data = {
 	//   id: res.id,
 	//   advertiser_id: res.advertiser_id,
-	//   advertiser_name: res.advertiser_name, //TODO: not in be now
+	//   advertiser_name: res.advertiser_name,
 	//   post_time: post_time,
 	//   title: res.title,
 	//   context: res.context,
@@ -72,9 +72,9 @@ const getSessions = (account_id) => {
 	//   id: res.id,
 	//   user_id: res.user_id,
 	//   dietitian_id: res.dietitian_id,
-	//   dietitian_name: res.dietitian_name, // TODO: not in be now
+	//   dietitian_name: res.dietitian_name,
 	//   domain_id: res.domain_id,
-	//   domain_name: res.domain_name, // TODO: not in be now
+	//   domain_name: res.domain_name,
 	//   session_status: res.session_status,
 	//   path: res.link,
 	//   time: start_time + " ➤ " + end_time,

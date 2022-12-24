@@ -26,27 +26,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const timeSlots = [
-  "09:00-10:00",
-  "10:00-11:00",
-  "11:00-12:00",
-  "12:00-13:00",
-  "13:00-14:00",
-  "14:00-15:00",
-  "15:00-16:00",
-  "16:00-17:00",
-  "17:00-18:00",
-  "18:00-19:00",
-  "19:00-20:00",
-  "20:00-21:00",
-];
-
 export default function DateTimePicker({
   selectedDate,
   setSelectedDate,
   selectedTime,
   setSelectedTime,
   multipleTimeSlots,
+  timeSlots,
 }) {
   const classes = useStyles();
   const handleSelectedTime = (
@@ -67,23 +53,6 @@ export default function DateTimePicker({
         />
       </div>
       <div className={classes.timeSlotsGroup}>
-        <div className={classes.dateResult}>
-          <Typography variant="body1">
-            {/* { TODO: add some design?
-              selectedDate.getUTCFullYear() +
-                "/" +
-                ("0" + (selectedDate.getUTCMonth() + 1)).slice(-2) +
-                "/" +
-                ("0" + selectedDate.getUTCDate()).slice(-2)
-              // " " +
-              // ("0" + selectedDate.getUTCHours()).slice(-2) +
-              // ":" +
-              // ("0" + selectedDate.getUTCMinutes()).slice(-2) +
-              // ":" +
-              // ("0" + selectedDate.getUTCSeconds()).slice(-2)}
-            } */}
-          </Typography>
-        </div>
         <ToggleButtonGroup
           sx={{
             display: "grid",

@@ -64,6 +64,20 @@ const data = [
 ];
 
 const allTopic = ["臨床營養", "體重管理", "孕期營養", "一般營養諮詢"];
+const timeSlots = [
+	"09:00-10:00",
+	"10:00-11:00",
+	"11:00-12:00",
+	"12:00-13:00",
+	"13:00-14:00",
+	"14:00-15:00",
+	"15:00-16:00",
+	"16:00-17:00",
+	"17:00-18:00",
+	"18:00-19:00",
+	"19:00-20:00",
+	"20:00-21:00",
+];
 
 export default function Consulation() {
 	const classes = useStyles();
@@ -119,7 +133,7 @@ export default function Consulation() {
 
 	return (
 		<div className={classes.container}>
-			<Typography variant="h3">Consulation</Typography>
+			<Typography variant="h3">Consultation</Typography>
 			<CustomTable
 				data={data}
 				columns={[
@@ -212,6 +226,7 @@ export default function Consulation() {
 						selectedTime={filterTimeSlots}
 						setSelectedTime={setFilterTimeSlots}
 						multipleTimeSlots={false}
+						timeSlots={timeSlots}
 					/>
 				</DialogContent>
 				<DialogActions>
