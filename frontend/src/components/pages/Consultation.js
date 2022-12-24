@@ -246,7 +246,24 @@ export default function Consulation() {
             selectedTime={filterTimeSlots}
             setSelectedTime={setFilterTimeSlots}
             multipleTimeSlots={false}
-            timeSlots={timeSlots}
+            timeSlots={[
+              {
+                day: "2022/12/12",
+                start_time: "20:00",
+                end_time: "21:00",
+              },
+              {
+                day: "2022/12/12",
+                start_time: "19:00",
+                end_time: "20:00",
+              },
+              {
+                day: "2022/12/13",
+                start_time: "14:00",
+                end_time: "15:00",
+              },
+            ]}
+            mode="availableSlots"
           />
         </DialogContent>
         <DialogActions>

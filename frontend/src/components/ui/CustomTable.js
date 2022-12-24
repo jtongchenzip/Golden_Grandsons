@@ -330,6 +330,7 @@ export default function CustomTable({
             setSelectedTime={setFilterTimeSlots}
             multipleTimeSlots={true}
             timeSlots={timeSlots}
+            mode="allSlots"
           />
         </DialogContent>
         <DialogActions>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { DayPicker } from "react-day-picker";
 import { ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
@@ -18,8 +18,9 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "500px",
     flexWrap: "wrap",
     display: "flex",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "flex-start",
+    paddingTop: "55px",
   },
   dateResult: {
     marginLeft: "25px",
@@ -33,14 +34,69 @@ export default function DateTimePicker({
   setSelectedTime,
   multipleTimeSlots,
   timeSlots,
+  mode,
 }) {
   const classes = useStyles();
+  const [formattedTimeSlots, setFormattedTimeSlots] = useState([]);
+  const [displayedTimeSlots, setDisplayedTimeSlots] = useState([]);
+
   const handleSelectedTime = (
     event: React.MouseEvent<HTMLElement>,
     newFormats: string[]
   ) => {
     setSelectedTime(newFormats);
   };
+
+  // sort in ascending order
+  const compareFunction = (a, b) => {
+    if (a < b) {
+      return -1;
+    }
+    if (b < a) {
+      return 1;
+    }
+    return 0;
+  };
+
+  // format time slots
+  useEffect(() => {
+    const temp = timeSlots.map((slot) => {
+      const timePeriod = String(slot.start_time) + "-" + String(slot.end_time);
+      return { day: slot.day, slots: [timePeriod] };
+    });
+    const distinctDaysWithAvailableTimeSlots = temp.reduce((obj, item) => {
+      obj[item.day]
+        ? obj[item.day].slots.push(...item.slots)
+        : (obj[item.day] = { ...item });
+      return obj;
+    }, {});
+    console.log(
+      "distinct days with available time slots",
+      distinctDaysWithAvailableTimeSlots
+    );
+    setFormattedTimeSlots(temp);
+  }, [timeSlots]);
+
+  // select availabel time slots of specific date
+  useEffect(() => {
+    if (formattedTimeSlots && formattedTimeSlots.length !== 0) {
+      if (selectedDate) {
+        const date =
+          selectedDate.getFullYear() +
+          "/" +
+          ("0" + (selectedDate.getMonth() + 1)).slice(-2) +
+          "/" +
+          ("0" + selectedDate.getDate()).slice(-2);
+        const targetIndex = formattedTimeSlots.findIndex(
+          (slot) => slot.day === date
+        );
+        setDisplayedTimeSlots(
+          formattedTimeSlots[targetIndex].slots.sort(compareFunction)
+        );
+        console.log("available time", formattedTimeSlots[targetIndex].slots);
+      }
+    }
+  }, [formattedTimeSlots, selectedDate]);
 
   return (
     <div className={classes.container}>
@@ -65,20 +121,38 @@ export default function DateTimePicker({
           onChange={handleSelectedTime}
           exclusive={!multipleTimeSlots}
         >
-          {timeSlots.map((slot) => {
-            return (
-              <ToggleButton
-                value={slot}
-                sx={{
-                  borderLeft: "solid",
-                  borderRadius: "2px",
-                  borderColor: "#000000",
-                }}
-              >
-                {slot}
-              </ToggleButton>
-            );
-          })}
+          {mode === "allSlots" &&
+            timeSlots.map((slot) => {
+              return (
+                <ToggleButton
+                  value={slot}
+                  sx={{
+                    borderLeft: "solid",
+                    borderRadius: "2px",
+                    borderColor: "#000000",
+                  }}
+                >
+                  {slot}
+                </ToggleButton>
+              );
+            })}
+          {mode === "availableSlots" &&
+            displayedTimeSlots &&
+            displayedTimeSlots.length !== 0 &&
+            displayedTimeSlots.map((slot) => {
+              return (
+                <ToggleButton
+                  value={slot}
+                  sx={{
+                    borderLeft: "solid",
+                    borderRadius: "2px",
+                    borderColor: "#000000",
+                  }}
+                >
+                  {slot}
+                </ToggleButton>
+              );
+            })}
         </ToggleButtonGroup>
       </div>
     </div>
