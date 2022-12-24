@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const agent = axios.create({ baseURL: "http://localhost:8000/" });
-// TODO: how to connect to BE :D ....?
+const agent = axios.create({ baseURL: "http://localhost:8000" });
+// TODO: how to connect to BE :D ....? :'( hope this works
 
 const getDietitian = () => {
 	// const config = {};
@@ -94,8 +94,15 @@ const getArticle = async (id) => {
 	}
 };
 
-const sendReservation = () => {};
+const postSession = async (payload) => {
+	try {
+		const res = await agent.post("/session", payload);
+		const { data } = res.data;
+		return data;
+	} catch (e) {
+		console.log(e.response);
+		return e.response;
+	}
+};
 
-const getReservation = () => {};
-
-export { getDietitian, getArticles, getSessions };
+export { getDietitian, getArticles, getSessions, getArticle, postSession };
