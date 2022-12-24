@@ -14,6 +14,11 @@ import { Router, Switch, Route } from "react-router-dom";
 const history = createBrowserHistory();
 
 function App() {
+  window.addEventListener("popstate", () => {
+    // URL changed!
+    window.location.reload();
+  });
+
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
@@ -23,7 +28,7 @@ function App() {
             <div>
               <Header />
               <Switch>
-                <Route exact path="/consultation" component={Consultation} />
+                <Route exact path="/consulation" component={Consultation} />
                 <Route exact path="/articles" component={ArticleList} />
                 <Route exact path="/articles/:id" component={ArticleInfo} />
                 <Route exact path="/my-reservation" component={MyReservation} />

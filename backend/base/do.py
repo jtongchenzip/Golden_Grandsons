@@ -2,68 +2,60 @@
 data objects
 """
 
-from dataclasses import dataclass
-from typing import Optional, Sequence
-from datetime import date, time, datetime
+from typing import Sequence
+from datetime import time, datetime
+from pydantic import BaseModel
 
 from base import enums
 
-@dataclass
-class UserAccount:
+class UserAccount(BaseModel):
     id: int
     name: str
     gender: enums.GenderType
-    birthday: date
+    birthday: datetime
 
 
-@dataclass
-class Domain:
+class Domain(BaseModel):
     id: int
     name: str
 
-@dataclass
-class DietitianAvailableTime:
+class DietitianAvailableTime(BaseModel):
     id: int
     dietitan_id: int
     available_day: int
     start_time: time
     end_time: time
 
-
-@dataclass
-class DietitianAccount:
+class DietitianAccount(BaseModel):
     id: int
     name: str
     gender: enums.GenderType
     domain: Sequence[Domain]
-    available_time = Sequence[DietitianAvailableTime]
+    available_time: Sequence[DietitianAvailableTime]
     phone_number: str
     introduction: str
     work_unit: str
 
-
-@dataclass 
-class AdvertiserAccount:
+class AdvertiserAccount(BaseModel):
     id: int
     name: str
+    introduction: str
 
-
-@dataclass
-class Session:
+class Session(BaseModel):
     id: int
     user_id: int
-    dietitan_id: int
+    dietitian_id: int
+    dietitian_name: str
     domain_id: int
+    domain_name: str
     session_status: enums.SessionStatusType
     link: str
     start_time: datetime
     end_time: datetime
 
-
-@dataclass
-class Article:
+class Article(BaseModel):
     id: int
-    advertiser_id: int
+    advertiser: AdvertiserAccount
     post_time: datetime
     title: str
     context: str
