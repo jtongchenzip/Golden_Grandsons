@@ -17,6 +17,7 @@ const getDietitian = () => {
 	//   gender: res.gender,
 	//   introduction: res.introduction,
 	//   phone_number: res.phone_number,
+	//   link_id: `/dietitian/${res.id}`,
 	// };
 	// console.log("response data",data)
 	// return data;

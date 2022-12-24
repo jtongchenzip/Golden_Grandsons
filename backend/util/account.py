@@ -1,7 +1,7 @@
 from database import database
 from base.do import UserAccount
 
-async def get_account(user_account_id: int) -> UserAccount:
+async def get(user_account_id: int) -> UserAccount:
     database.cur.execute(f"SELECT id, name, gender, birthday FROM user_account where id = {user_account_id}")
     row = database.cur.fetchone()
     if row is None:
