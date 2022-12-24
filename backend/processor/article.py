@@ -25,7 +25,7 @@ async def get_article(article_id: int):
 
 
 @router.get("/article", tags=["article"], summary="Browse Articles")
-async def browse_article(filter: str=None):
+async def browse_article():
     database.cur.execute(f"SELECT id, advertiser_id, post_time, title, context FROM article")
     rows = database.cur.fetchall()
 
