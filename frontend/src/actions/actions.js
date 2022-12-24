@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const agent = axios.create({ baseURL: "http://localhost:8000/" });
-// TODO: how to connect to BE :D ....?
+const agent = axios.create({ baseURL: "http://localhost:8000" });
+// TODO: how to connect to BE :D ....? :'( hope this works
 
 const getDietitian = () => {
 	// const config = {};
