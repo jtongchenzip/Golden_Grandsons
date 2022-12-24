@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const data = [
 	{
+		id: 1,
 		name: "erica",
 		work_unit: "Cornelia Clinic",
 		domain: "臨床營養",
@@ -45,6 +46,7 @@ const data = [
 		phone_number: "0988422531",
 	},
 	{
+		id: 2,
 		name: "amber",
 		work_unit: "Amber Clinic",
 		domain: "孕期營養",
@@ -54,6 +56,7 @@ const data = [
 		phone_number: "0914566097",
 	},
 	{
+		id: 3,
 		name: "jtc",
 		work_unit: "RockClimbing Clinic",
 		domain: "一般營養諮詢",
@@ -92,6 +95,7 @@ export default function Consulation() {
 	const [filterTimeSlots, setFilterTimeSlots] = useState("");
 	const [filterDate, setFilterDate] = useState("");
 	const [disabled, setDisabled] = useState(true);
+	const [onClickID, setOnClickID] = useState("");
 	// const [data, setData] = useState([]);
 	// useEffect(() => {
 	//   setData(getDietitian()); //TODO
@@ -220,6 +224,7 @@ export default function Consulation() {
 				hasLink
 				nextStep="reserve"
 				nextStepOnClick={handleReserve}
+				setOnClickID={setOnClickID}
 			/>
 			<Dialog open={showReserveDialog} maxWidth="md" fullWidth={true}>
 				<DialogTitle>

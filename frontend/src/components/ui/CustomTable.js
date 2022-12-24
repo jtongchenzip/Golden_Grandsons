@@ -180,6 +180,7 @@ export default function CustomTable({
   children,
   nextStep,
   nextStepOnClick,
+  setOnClickID,
 }) {
   const classes = useStyles();
   const [curPage, setPage] = useState(0);
@@ -268,6 +269,8 @@ export default function CustomTable({
   const handleNextStep = (id, link) => {
     if (nextStep === "reserve") {
       nextStepOnClick(); // open dialog
+      setOnClickID(id);
+      console.log("id", id);
     } else if (nextStep === "readArticles") {
       nextStepOnClick(id); // history push
     } else if (nextStep === "videoCall") {
