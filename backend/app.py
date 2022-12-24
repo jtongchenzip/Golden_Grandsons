@@ -1,12 +1,16 @@
 import uvicorn
 from fastapi import FastAPI, HTTPException
-from typing import List
+from fastapi.responses import JSONResponse
+from fastapi.encoders import jsonable_encoder
 from database import database
-from base.do import UserAccount
+from base.do import UserAccount, DietitianAccount, Session, Article
+from util.util import get_dietitian_domain, get_dietitian_time, get_dietitian_name, get_domain_name, get_article_advertiser
 
 tags_metadata = [
-    { "name": "user", },
-    { "name": "comment", },
+    { "name": "account", },
+    { "name": "dietitian", },
+    { "name": "session", },
+    { "name": "article", },
 ]
 
 app = FastAPI(openapi_tags=tags_metadata)
@@ -15,119 +19,147 @@ app = FastAPI(openapi_tags=tags_metadata)
 async def root():
     return {"message": "Hello World"}
 
-@app.get("/user_account/{user_account_id}", tags=["user"], response_model=UserAccount)
-async def browse_post(user_account_id: int):
-    database.cur.execute(f"SELECT id, name, gender, birthday FROM user_account where id = {user_account_id}")
+@app.get("/account/{account_id}", tags=["account"], summary="Get one User Account")
+async def get_account(account_id: int):
+    database.cur.execute(f"SELECT id, name, gender, birthday FROM user_account where id = {account_id}")
     row = database.cur.fetchone()
 
-    print(row)
-    print(type(row[3]))
-    user = UserAccount(id=row[0], name=row[1], gender=row[2], birthday=row[3])
-    print(user)
+    if row is None:
+        res = {
+            "response": {
+                "data": None ,
+                "error": "UserAccountNotFound" },
+        }
+        content = jsonable_encoder(res)
+        return JSONResponse(status_code=404, content=content)
 
-    return user
+    res = {
+        "response": {
+            "data": UserAccount(id=row[0], name=row[1], gender=row[2], birthday=row[3]) ,
+            "error": None },
+    }
 
-# @app.get("/post", tags=["post"], response_model=List[PostResponse])
-# async def browse_post():
-#     database.cur.execute(f"SELECT id, title, content FROM post")
-#     rows = database.cur.fetchall()
+    content = jsonable_encoder(res)
+    return JSONResponse(status_code=200, content=content)
 
-#     return [PostResponse(id=rows[i][0], title=rows[i][1], content=rows[i][2])
-#             for i in range(len(rows))]
+@app.get("/dietitian", tags=["dietitian"], summary="Browse Dietitian Accounts")
+async def browse_dietitian(filter: str=None):
+    database.cur.execute(f"SELECT id, name, gender, phone_number, introduction, work_unit FROM dietitian_account")
+    rows = database.cur.fetchall()
 
-# @app.get("/post/{post_id}", tags=["post"], response_model=PostResponse)
-# async def read_post(post_id: int):
-#     database.cur.execute(f"SELECT id, title, content FROM post WHERE id= {post_id}")
-#     row = database.cur.fetchone()
+    if rows is None:
+        res = {
+            "response": {
+                "data": None ,
+                "error": "DietitianAccountNotFound" },
+        }
+        content = jsonable_encoder(res)
+        return JSONResponse(status_code=404, content=content)
 
-#     if row is None:
-#         raise HTTPException(status_code=404, detail="post not found")
-#     return PostResponse(id=row[0], title=row[1], content=row[2])
+    data = []
+    for row in rows:
+        dietitian_id = row[0]
+        domains = await get_dietitian_domain(dietitian_id)
+        available_times = await get_dietitian_time(dietitian_id)
+        data.append(DietitianAccount(id=row[0], name=row[1], gender=row[2], domain=domains, available_time=available_times,
+                                     phone_number=row[3], introduction=row[4], work_unit=row[5]))
 
-# @app.patch("/post/{post_id}", tags=["post"])
-# async def edit_post(post_id: int, title: str, content: str):
-#     database.cur.execute(f"SELECT id, title, content FROM post WHERE id= {post_id}")
-#     row = database.cur.fetchone()
+    res = {
+        "response": {
+            "data": data,
+            "error": None },
+    }
+    content = jsonable_encoder(res)
+    
+    return JSONResponse(status_code=200, content=content)
 
-#     if row is None:
-#         raise HTTPException(status_code=404, detail="post not found")
+@app.get("/account/{account_id}/session", tags=["account"], summary="Get a user's session")
+async def get_session_under_account(account_id: int):
+    database.cur.execute(f"SELECT id, user_id, dietitian_id, domain_id, session_status, link, start_time, end_time FROM session where user_id = {account_id}")
+    rows = database.cur.fetchall()
 
-#     database.cur.execute(f"UPDATE post SET title = '{title}', content = '{content}' WHERE id={post_id}")
-#     database.conn.commit()
-#     return f"post {post_id} is updated"
+    if rows is None:
+        res = {
+            "response": {
+                "data": None ,
+                "error": "SessionUnderUserAccountNotFound" },
+        }
+        content = jsonable_encoder(res)
+        return JSONResponse(status_code=404, content=content)
+    
+    tmpDomainName = "qq"
+    data = []
 
-# @app.post("/post", tags=["post"])
-# async def add_post():
-#     database.cur.execute(f"INSERT INTO post (title, content) VALUES ('', '') RETURNING id")
-#     id, = database.cur.fetchone()
-#     database.conn.commit()
-#     return f"post {id} is added"
+    for row in rows:
+        dietitian_id = row[2]
+        domain_id = row[3]
 
-# @app.delete("/post/{post_id}", tags=["post"])
-# async def delete_post(post_id: int):
-#     database.cur.execute(f"SELECT id, title, content FROM post WHERE id= {post_id}")
-#     row = database.cur.fetchone()
+        dietitian_name = await get_dietitian_name(dietitian_id)
+        domain_name = await get_domain_name(domain_id)
+    
+        data.append(Session(id=row[0], user_id=row[1], dietitian_id=row[2], dietitian_name=dietitian_name,
+                            domain_id=row[3], domain_name=domain_name,
+                            session_status=row[4], link=row[5], start_time=row[6], end_time=row[7]))
 
-#     if row is None:
-#         raise HTTPException(status_code=404, detail="post not found")
+    res = {
+        "response": {
+            "data": data,
+            "error": None },
+    }
+    
+    content = jsonable_encoder(res)
+    return JSONResponse(status_code=200, content=content)
 
-#     database.cur.execute(f"DELETE FROM post WHERE id = {post_id}")
-#     database.conn.commit()
-#     return f"post {post_id} is deleted"
+@app.post("/session", tags=["session"])
+async def add_session(user_id, dietitian_id, domain_id, start_time, end_time):
+    database.cur.execute(f"INSERT INTO session (user_id, dietitian_id, domain_id, session_status, link, start_time, end_time) \
+                           VALUES ('{user_id}', '{dietitian_id}', '{domain_id}', 'RESERVED', 'https://meet.google.com/vhf-ujur-jgu', \
+                                   '{start_time}', '{end_time}') RETURNING id")
+    id, = database.cur.fetchone()
+    database.conn.commit()
 
-# @app.get("/post/{post_id}/comment", tags=["comment"], response_model=List[CommentResponse], summary="Browse Comments Under Post")
-# async def browse_comment(post_id: int):
-#     database.cur.execute(f"SELECT id, post_id, content FROM comment WHERE post_id = {post_id}")
-#     rows = database.cur.fetchall()
+    database.cur.execute(f"SELECT id, user_id, dietitian_id, domain_id, session_status, link, start_time, end_time FROM session where id = {id}")
+    row = database.cur.fetchone()
 
-#     return [CommentResponse(id=rows[i][0], post_id=rows[i][1], content=rows[i][2])
-#             for i in range(len(rows))]
+    dietitian_id = row[2]
+    domain_id = row[3]
 
-# @app.get("/comment/{comment_id}", tags=["comment"], response_model=CommentResponse)
-# async def read_comment(comment_id: int):
-#     database.cur.execute(f"SELECT id, post_id, content FROM comment WHERE id= {comment_id}")
-#     row = database.cur.fetchone()
+    dietitian_name = await get_dietitian_name(dietitian_id)
+    domain_name = await get_domain_name(domain_id)
 
-#     if row is None:
-#         raise HTTPException(status_code=404, detail="comment not found")
-#     return CommentResponse(id=row[0], post_id=row[1], content=row[2])
+    return Session(id=row[0], user_id=row[1], dietitian_id=row[2], dietitian_name=dietitian_name,
+                   domain_id=row[3], domain_name=domain_name,
+                   session_status=row[4], link=row[5], start_time=row[6], end_time=row[7])
 
-# @app.patch("/comment/{comment_id}", tags=["comment"])
-# async def edit_comment(comment_id: int, content: str):
-#     database.cur.execute(f"SELECT id, post_id, content FROM comment WHERE id= {comment_id}")
-#     row = database.cur.fetchone()
+@app.get("/article", tags=["article"], summary="Browse Articles")
+async def browse_article(filter: str=None):
+    database.cur.execute(f"SELECT id, advertiser_id, post_time, title, context FROM article")
+    rows = database.cur.fetchall()
 
-#     if row is None:
-#         raise HTTPException(status_code=404, detail="comment not found")
+    if rows is None:
+        res = {
+            "response": {
+                "data": None ,
+                "error": "ArticleNotFound" },
+        }
+        content = jsonable_encoder(res)
+        return JSONResponse(status_code=404, content=content)
 
-#     database.cur.execute(f"UPDATE comment SET content = '{content}' WHERE id={comment_id}")
-#     database.conn.commit()
-#     return f"comment {comment_id} is updated"
+    data = []
+    print(rows)
+    for row in rows:
+        article_id = row[0]
+        advertiser = await get_article_advertiser(article_id)
+        data.append(Article(id=article_id, advertiser=advertiser, post_time=row[2], title=row[3], context=row[4]))
 
-# @app.post("/post/{post_id}/comment", tags=["comment"], summary="Add Comment Under Post")
-# async def add_comment(post_id: int):
-#     database.cur.execute(f"SELECT id, title, content FROM post WHERE id= {post_id}")
-#     row = database.cur.fetchone()
-
-#     if row is None:
-#         raise HTTPException(status_code=404, detail="post not found")
-
-#     database.cur.execute(f"INSERT INTO comment (post_id ,content) VALUES ({post_id}, '') RETURNING id")
-#     id, = database.cur.fetchone()
-#     database.conn.commit()
-#     return f"comment {id} is added"
-
-# @app.delete("/comment/{comment_id}", tags=["comment"])
-# async def delete_comment(comment_id: int):
-#     database.cur.execute(f"SELECT id, post_id, content FROM comment WHERE id= {comment_id}")
-#     row = database.cur.fetchone()
-
-#     if row is None:
-#         raise HTTPException(status_code=404, detail="comment not found")
-
-#     database.cur.execute(f"DELETE FROM comment WHERE id = {comment_id}")
-#     database.conn.commit()
-#     return f"comment {comment_id} is deleted"
+    res = {
+        "response": {
+            "data": data,
+            "error": None },
+    }
+    content = jsonable_encoder(res)
+    
+    return JSONResponse(status_code=200, content=content)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="localhost", port=8000)

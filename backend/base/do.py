@@ -40,12 +40,13 @@ class DietitianAccount(BaseModel):
 class AdvertiserAccount(BaseModel):
     id: int
     name: str
+    introduction: str
 
 class Session(BaseModel):
     id: int
     user_id: int
-    dietitan_id: int
-    dietitan_name: str
+    dietitian_id: int
+    dietitian_name: str
     domain_id: int
     domain_name: str
     session_status: enums.SessionStatusType
@@ -55,8 +56,7 @@ class Session(BaseModel):
 
 class Article(BaseModel):
     id: int
-    advertiser_id: int
-    advertiser_name: str
+    advertiser: AdvertiserAccount
     post_time: datetime
     title: str
     context: str
