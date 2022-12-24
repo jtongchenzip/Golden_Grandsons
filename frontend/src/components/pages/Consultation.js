@@ -245,7 +245,7 @@ export default function Consulation() {
 							label="諮詢主題"
 							onChange={handleTopicChange}
 						>
-							{allDomain.map(({ id, name }) => {
+							{allTopic.map(({ id, name }) => {
 								return (
 									<MenuItem value={id} key={id}>
 										{name}
@@ -260,7 +260,6 @@ export default function Consulation() {
 						selectedTime={filterTimeSlots}
 						setSelectedTime={setFilterTimeSlots}
 						multipleTimeSlots={false}
-						timeSlots={timeSlots}
 					/>
 				</DialogContent>
 				<DialogActions>

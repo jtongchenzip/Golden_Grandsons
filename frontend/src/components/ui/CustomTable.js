@@ -211,7 +211,9 @@ export default function CustomTable({
     const searchResult = data.filter((record) => {
       const values = Object.values(record);
       return values.some((value) => {
-        return value.includes(String(search));
+        if (typeof value === "string") {
+          return value.includes(String(search));
+        }
       });
     });
     setFilterData(searchResult);
@@ -328,6 +330,7 @@ export default function CustomTable({
             setSelectedTime={setFilterTimeSlots}
             multipleTimeSlots={true}
             timeSlots={timeSlots}
+            mode="allSlots"
           />
         </DialogContent>
         <DialogActions>
@@ -500,10 +503,10 @@ export default function CustomTable({
                 setRowsPerPage(e.target.value);
               }}
             >
+              <MenuItem value={5}>5</MenuItem>
               <MenuItem value={10}>10</MenuItem>
               <MenuItem value={25}>25</MenuItem>
               <MenuItem value={50}>50</MenuItem>
-              <MenuItem value={100}>100</MenuItem>
             </Select>
           </FormControl>
 
