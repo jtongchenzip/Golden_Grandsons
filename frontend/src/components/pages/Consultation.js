@@ -136,7 +136,9 @@ export default function Consulation() {
           },
           []
         );
-        item.gender = item.gender.toLowerCase();
+        item.gender =
+          item.gender.toLowerCase().charAt(0).toUpperCase() +
+          item.gender.toLowerCase().slice(1);
       });
       setDietitianInfo(res);
     }
