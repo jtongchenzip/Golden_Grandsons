@@ -9,7 +9,7 @@ async def get(article_id) -> Article:
     if row is None:
         return None
 
-    advertiser_ = await advertiser.get(article_id=row[0])
+    advertiser_ = await advertiser.get(advertiser_id=row[1])
     article = Article(id=row[0], advertiser=advertiser_, post_time=row[2], title=row[3], context=row[4])
     return article
 
@@ -21,6 +21,6 @@ async def browse() -> Sequence[Article]:
 
     articles = []
     for row in rows:
-        advertiser_ = await advertiser.get(article_id=row[0])
+        advertiser_ = await advertiser.get(advertiser_id=row[1])
         articles.append(Article(id=row[0], advertiser=advertiser_, post_time=row[2], title=row[3], context=row[4]))
     return articles
