@@ -55,6 +55,9 @@ const useStyles = makeStyles((theme) => ({
   textMaxWidth: {
     maxWidth: "79%",
   },
+  available_time: {
+    maxWidth: "60%",
+  },
 }));
 
 export default function AlignedText({
@@ -122,6 +125,8 @@ export default function AlignedText({
         return classes.fieldBottomMargin;
       case "text":
         return classes.textMaxWidth;
+      case "available_time":
+        return classes.textBreakWord;
       default:
         return null;
     }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import {
   Typography,
@@ -33,7 +33,7 @@ const displayedColumns = [
   { displayedName: "Name", key: "name" },
   { displayedName: "Work Unit", key: "work_unit" },
   { displayedName: "Domain", key: "arrDomain" },
-  { displayedName: "Available Time", key: "available_time" },
+  { displayedName: "Available Time", key: "arrAvailTime" },
   { displayedName: "Gender", key: "gender" },
   { displayedName: "Introduction", key: "introduction" },
 ];
@@ -41,7 +41,7 @@ const displayedColumns = [
 export default function DietitianInfo({ showDialog, setShowDialog, data }) {
   const classes = useStyles();
   useEffect(() => {
-    console.log("data", data);
+    console.log("data", data[0]);
   });
 
   return (
@@ -51,16 +51,24 @@ export default function DietitianInfo({ showDialog, setShowDialog, data }) {
           Dietitian Information
         </Typography>
         {displayedColumns.map((col) => {
-          if (col.key === "available_time") {
+          if (col.key === "arrAvailTime") {
             return (
-              <AlignedText text={col.displayedName} childrenType="text">
-                <Typography variant="body1">{data[col.key]}</Typography>
+              <AlignedText
+                text={col.displayedName}
+                childrenType="available_time"
+              >
+                <Typography variant="body1">
+                  {data &&
+                    data.length !== 0 &&
+                    data[0][col.key] !== undefined &&
+                    data[0][col.key].join(" · ")}
+                </Typography>
               </AlignedText>
             );
           } else {
             return (
               <AlignedText text={col.displayedName} childrenType="text">
-                <Typography variant="body1">{data[col.key]}</Typography>
+                <Typography variant="body1">{data[0][col.key]}</Typography>
               </AlignedText>
             );
           }

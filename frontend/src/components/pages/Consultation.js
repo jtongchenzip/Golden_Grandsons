@@ -98,13 +98,13 @@ const timeSlots = [
 ];
 
 const enTozh = [
-  "禮拜一",
-  "禮拜二",
-  "禮拜三",
-  "禮拜四",
-  "禮拜五",
-  "禮拜六",
-  "禮拜日",
+  "星期一",
+  "星期二",
+  "星期三",
+  "星期四",
+  "星期五",
+  "星期六",
+  "星期天",
 ];
 
 export default function Consulation() {
@@ -275,7 +275,7 @@ export default function Consulation() {
       <DietitianInfo
         showDialog={showDietitianInfo}
         setShowDialog={setShowDietitianInfo}
-        data={singleDietitianInfo}
+        data={[singleDietitianInfo]}
       />
       {availableSlots && availableSlots.length !== 0 && (
         <Dialog open={showReserveDialog} maxWidth="md" fullWidth={false}>
