@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import CustomTable from "../ui/CustomTable";
 import { makeStyles } from "@mui/styles";
 import { useHistory } from "react-router-dom";
+import { getArticles } from "../../actions/actions";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -15,41 +16,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const data = [
-  {
-    id: 1,
-    advertiser_name: "牙具工廠",
-    post_time: "2022/10/12 20:00",
-    title: "牙刷特賣會",
-    context: "別再等啦！別再等啦！",
-    path: "/articles/1",
-  },
-  {
-    id: 2,
-    advertiser_name: "健身工廠",
-    post_time: "2022/10/15 13:00",
-    title: "健身比賽",
-    context: "別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！",
-    path: "/articles/2",
-  },
-  {
-    id: 3,
-    advertiser_name: "營養餐盒廠商",
-    post_time: "2022/10/20 14:00",
-    title: "秋葵餐盒跳樓大拍賣",
-    context:
-      "別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！別再等啦！",
-    path: "/articles/3",
-  },
-];
-
 export default function ArticleList() {
   const classes = useStyles();
   const history = useHistory();
-  // const [data, setData] = useState([]);
-  // useEffect(() => {
-  //   setData(getArticles()); //TODO
-  // }, []);
+  const [data, setData] = useState([]);
+
+  // formatting be response data
+  useEffect(() => {
+    async function fetchArticles() {
+      const res = await getArticles();
+      res.map((item) => {
+        item.advertiser_id = item.advertiser.id;
+        item.advertiser_name = item.advertiser.name;
+        item.post_time =
+          item.post_time.split("T")[0].replaceAll("-", "/") +
+          " " +
+          item.post_time.split("T")[1].slice(0, 5);
+      });
+      setData(res);
+    }
+    fetchArticles();
+  }, []);
 
   const handleReadArticles = (id) => {
     history.push(`/articles/${id}`);

@@ -191,7 +191,7 @@ export default function CustomTable({
   const classes = useStyles();
   const [curPage, setPage] = useState(0);
   const [pageInput, setPageInput] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [search, setSearch] = useState("");
   const [filterTimeSlots, setFilterTimeSlots] = useState([]);
   const [filterDate, setFilterDate] = useState("");
@@ -212,7 +212,6 @@ export default function CustomTable({
   }, [columns, data]);
   // search for the keyword in all columns
   const handleSearch = () => {
-    console.log("search keyword", search);
     const searchResult = data.filter((record) => {
       const values = Object.values(record);
       return values.some((value) => {
@@ -222,7 +221,6 @@ export default function CustomTable({
       });
     });
     setFilterData(searchResult);
-    console.log("search result", searchResult);
   };
   // handle filter time slots
   const handleSubmitFilterTime = () => {
@@ -263,7 +261,6 @@ export default function CustomTable({
         if (mode === "time") {
           return filterTime.some((filterKey) => slot.includes(filterKey));
         } else if (mode === "date") {
-          console.log("slot", slot);
           return slot.includes(filterTime);
         } else {
           return filterTime.includes(slot);
@@ -277,7 +274,6 @@ export default function CustomTable({
     if (nextStep === "reserve") {
       nextStepOnClick(); // open dialog
       setOnClickID(id);
-      console.log("id", id);
     } else if (nextStep === "readArticles") {
       nextStepOnClick(id); // history push
     } else if (nextStep === "videoCall") {

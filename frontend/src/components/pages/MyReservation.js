@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import CustomTable from "../ui/CustomTable";
 import { makeStyles } from "@mui/styles";
 import { getSessions } from "../../actions/actions";
-import { set } from "date-fns";
 
 // import Icon from "./icon/index";
 
@@ -37,10 +36,30 @@ const data = [
 
 export default function MyReservation() {
   const classes = useStyles();
-  // const [data, setData] = useState([]);
-  // useEffect(() => {
-  //   setData(getSessions(account_id)); //TODO: account_id?
-  // }, []);
+  const [data, setData] = useState([]);
+
+  // formatting be response data
+  useEffect(() => {
+    async function fetchSessions() {
+      const res = await getSessions(1);
+      res.map((item) => {
+        item.time =
+          item.start_time.split("T")[0].replaceAll("-", "/") +
+          " " +
+          item.start_time.split("T")[1].slice(0, 5) +
+          " ➤ " +
+          item.end_time.split("T")[0].replaceAll("-", "/") +
+          " " +
+          item.end_time.split("T")[1].slice(0, 5);
+        item.session_status =
+          item.session_status.toLowerCase().charAt(0).toUpperCase() +
+          item.session_status.toLowerCase().slice(1); // capitalize first letter
+        item.path = item.link;
+      });
+      setData(res);
+    }
+    fetchSessions();
+  }, []);
 
   const handleVideoCall = (link) => {
     window.open(link);

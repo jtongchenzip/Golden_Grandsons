@@ -14,7 +14,7 @@ INSERT INTO dietitian_account (name, gender, phone_number, introduction, work_un
 INSERT INTO dietitian_account (name, gender, phone_number, introduction, work_unit)
                        VALUES ('Chieh-Tung Chen', 'FEMALE', '0907344689',
                                '提供專業攀岩選手的最佳營養計畫',
-                               'RockClimbing Clinic"'); 
+                               'RockClimbing Clinic'); 
 
 INSERT INTO dietitian_account (name, gender, phone_number, introduction, work_unit)
                        VALUES ('YC Lai', 'FEMALE', '0976193645',

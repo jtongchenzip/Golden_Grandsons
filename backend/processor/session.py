@@ -24,10 +24,10 @@ async def add_session(user_id: int, dietitian_id: int, domain_id: int, start_tim
     if dietitian_ is None:
         return JSONResponse(status_code=404, content=error_content(message="DietitianAccountNotFound"))
     
-    dietitian_domains = await dietitian.get_domain(dietitian_id)
-    dietitian_domain_ids = [dietitian_domain.id for dietitian_domain in dietitian_domains]
-    if domain_id not in dietitian_domain_ids:
-       return JSONResponse(status_code=404, content=error_content(message="DomainNotInDietitianDomain")) 
+    # dietitian_domains = await dietitian.get_domain(dietitian_id)
+    # dietitian_domain_ids = [dietitian_domain.id for dietitian_domain in dietitian_domains]
+    # if domain_id not in dietitian_domain_ids:
+    #    return JSONResponse(status_code=404, content=error_content(message="DomainNotInDietitianDomain")) 
 
     return_session = await session.add(user_id=user_id, dietitian_id=dietitian_id, domain_id=domain_id,
                                        start_time=start_time, end_time=end_time)
