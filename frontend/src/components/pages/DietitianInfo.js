@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { makeStyles } from "@mui/styles";
 import {
   Typography,
@@ -15,20 +15,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const data = [
-//   {
-//     id: 3,
-//     name: "jtc",
-//     work_unit: "RockClimbing Clinic",
-//     domain: "一般營養諮詢",
-//     available_time: ["2022/12/31 16:00-17:00", "2022/12/30 11:00-12:00"],
-//     gender: "female",
-//     introduction: "提供專業攀岩選手的最佳營養計畫",
-//     phone_number: "0907344689",
-//     link_id: "/dietitian/3",
-//   },
-// ];
-
 const displayedColumns = [
   { displayedName: "Name", key: "name" },
   { displayedName: "Work Unit", key: "work_unit" },
@@ -40,9 +26,6 @@ const displayedColumns = [
 
 export default function DietitianInfo({ showDialog, setShowDialog, data }) {
   const classes = useStyles();
-  useEffect(() => {
-    console.log("data", data[0]);
-  });
 
   return (
     <Dialog open={showDialog} maxWidth="md" fullWidth={true}>

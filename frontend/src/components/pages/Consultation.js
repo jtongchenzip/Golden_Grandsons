@@ -162,7 +162,6 @@ export default function Consulation() {
   };
 
   const handleSubmitFilterTime = async () => {
-    // console.log("selected results", filterDate, filterTimeSlots);
     const dateFormat =
       filterDate.getFullYear() +
       "/" +
@@ -180,8 +179,6 @@ export default function Consulation() {
         "T" +
         (filterTimeSlots.split("-")[1] + ":00").replaceAll(":", "%3A")
     );
-    // console.log("start time", startFilterTime);
-
     const data = {
       user_id: 1,
       dietitian_id: onClickID,
