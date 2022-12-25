@@ -45,6 +45,7 @@ export default function DateTimePicker({
     newFormats: string[]
   ) => {
     setSelectedTime(newFormats);
+    console.log("selected", selectedTime);
   };
 
   // sort in ascending order
@@ -60,26 +61,35 @@ export default function DateTimePicker({
 
   // format time slots
   useEffect(() => {
-    const temp = timeSlots.map((slot) => {
-      const timePeriod = String(slot.start_time) + "-" + String(slot.end_time);
-      return { available_day: slot.available_day, slots: [timePeriod] };
-    });
-    const distinctDaysWithAvailableTimeSlots = temp.reduce((obj, item) => {
-      obj[item.available_day]
-        ? obj[item.available_day].slots.push(...item.slots)
-        : (obj[item.available_day] = { ...item });
-      return obj;
-    }, {});
-    console.log(
-      "distinct days with available time slots",
-      distinctDaysWithAvailableTimeSlots
-    );
-    setFormattedTimeSlots(temp);
-  }, [timeSlots]);
+    if (mode === "availableSlots") {
+      const temp = timeSlots.map((slot) => {
+        const timePeriod =
+          String(slot.start_time) + "-" + String(slot.end_time);
+        return { available_day: slot.available_day, slots: [timePeriod] };
+      });
+      const distinctDaysWithAvailableTimeSlots = temp.reduce((obj, item) => {
+        obj[item.available_day]
+          ? obj[item.available_day].slots.push(...item.slots)
+          : (obj[item.available_day] = { ...item });
+        return obj;
+      }, {});
+      console.log(
+        "distinct days with available time slots",
+        distinctDaysWithAvailableTimeSlots
+      );
+      setFormattedTimeSlots(temp);
+    } else if (mode === "allSlots") {
+      setDisplayedTimeSlots(timeSlots);
+    }
+  }, [timeSlots, mode]);
 
   // select availabel time slots of specific date
   useEffect(() => {
-    if (formattedTimeSlots && formattedTimeSlots.length !== 0) {
+    if (
+      mode === "availableSlots" &&
+      formattedTimeSlots &&
+      formattedTimeSlots.length !== 0
+    ) {
       if (selectedDate) {
         const targetIndex = formattedTimeSlots.findIndex((slot) => {
           if (selectedDate.getDay() + 1 === 1) {
@@ -101,7 +111,7 @@ export default function DateTimePicker({
         setDisplayedTimeSlots([]);
       }
     }
-  }, [formattedTimeSlots, selectedDate]);
+  }, [formattedTimeSlots, selectedDate, mode]);
 
   return (
     <div className={classes.container}>

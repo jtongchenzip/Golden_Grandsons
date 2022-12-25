@@ -233,14 +233,21 @@ export default function CustomTable({
   };
   // handle filter time slots
   const handleSubmitFilterTime = () => {
-    if (filterDate === "" && filterTimeSlots.length === 0) {
+    console.log("filter keys", filterDate, filterTimeSlots);
+    if (
+      (filterDate === "" || filterDate === undefined) &&
+      filterTimeSlots.length === 0
+    ) {
       setFilterData(data);
     } else if (filterDate !== "" && filterTimeSlots.length === 0) {
       const dateFormat = transformDateFormat(filterDate);
       const filterTime = String(dateFormat);
       const filterResult = dataFilterByTime(data, filterTime, "date");
       setFilterData(filterResult);
-    } else if (filterDate === "" && filterTimeSlots.length !== 0) {
+    } else if (
+      (filterDate === "" || filterDate === undefined) &&
+      filterTimeSlots.length !== 0
+    ) {
       const filterTime = filterTimeSlots.map((slot) => String(slot));
       const filterResult = dataFilterByTime(data, filterTime, "time");
       setFilterData(filterResult);
