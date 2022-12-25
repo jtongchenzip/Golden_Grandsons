@@ -14,13 +14,14 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: "flex-start",
 	},
 	leftHalf: {
-		width: "70%",
+		width: "75%",
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "flex-start",
+		textAlign: "left",
 	},
 	rightHalf: {
-		width: "30%",
+		width: "25%",
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "flex-start",
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 		margin: "10px 0",
 		borderColor: "#D3E4CD",
 		borderWidth: "1px",
-		width: "95%",
+		width: "98%",
 	},
 	authorTitle: {
 		marginBottom: "5%",
@@ -67,7 +68,9 @@ export default function ArticleInfo() {
 							{article.post_time.replace("T", " ").slice(0, -3)}
 						</Typography>
 						<Divider className={classes.divider} />
-						<Typography>{article.context}</Typography>
+						<Typography
+							dangerouslySetInnerHTML={{ __html: article.context }}
+						></Typography>
 					</div>
 					<div className={classes.rightHalf}>
 						<Typography variant="h4" className={classes.authorTitle}>
