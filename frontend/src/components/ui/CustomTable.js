@@ -417,7 +417,10 @@ export default function CustomTable({
                               align={column.align}
                             >
                               <Link
-                                onClick={() => setShowDialog(true)}
+                                onClick={() => {
+                                  setShowDialog(true);
+                                  setOnClickID(row.id);
+                                }}
                                 className={classes.textLink}
                               >
                                 {column.format && typeof value === "number"

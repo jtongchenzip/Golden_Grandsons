@@ -33,22 +33,17 @@ const data = [
 const displayedColumns = [
   { displayedName: "Name", key: "name" },
   { displayedName: "Work Unit", key: "work_unit" },
-  { displayedName: "Domain", key: "domain" },
+  { displayedName: "Domain", key: "arrDomain" },
   { displayedName: "Available Time", key: "available_time" },
   { displayedName: "Gender", key: "gender" },
   { displayedName: "Introduction", key: "introduction" },
 ];
 
-export default function DietitianInfo({
-  showDialog,
-  setShowDialog,
-  onClickID,
-}) {
+export default function DietitianInfo({ showDialog, setShowDialog, data }) {
   const classes = useStyles();
-  // const [data, setData] = useState([]);
-  // useEffect(() => {
-  //   setData(getArticles()); //TODO
-  // }, []);
+  useEffect(() => {
+    console.log("data", data);
+  });
 
   return (
     <Dialog open={showDialog} maxWidth="md" fullWidth={true}>
@@ -61,14 +56,14 @@ export default function DietitianInfo({
             return (
               <AlignedText text={col.displayedName} childrenType="text">
                 <Typography variant="body1">
-                  {data[0][col.key].join(", ")}
+                  {data[col.key].join(", ")}
                 </Typography>
               </AlignedText>
             );
           } else {
             return (
               <AlignedText text={col.displayedName} childrenType="text">
-                <Typography variant="body1">{data[0][col.key]}</Typography>
+                <Typography variant="body1">{data[col.key]}</Typography>
               </AlignedText>
             );
           }
