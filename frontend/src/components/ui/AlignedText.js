@@ -55,8 +55,10 @@ const useStyles = makeStyles((theme) => ({
   textMaxWidth: {
     maxWidth: "79%",
   },
-  available_time: {
-    maxWidth: "60%",
+  textBreakWord: {
+    width: "615px",
+    marginTop: "0px",
+    marginBottom: "16px",
   },
 }));
 
@@ -109,6 +111,9 @@ export default function AlignedText({
         return classes.fieldAlignedText;
       }
       case "text": {
+        return classes.textAlignedText;
+      }
+      case "available_time": {
         return classes.textAlignedText;
       }
       case "radio": {

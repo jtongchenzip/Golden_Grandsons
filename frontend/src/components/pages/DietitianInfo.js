@@ -55,6 +55,7 @@ export default function DietitianInfo({ showDialog, setShowDialog, data }) {
             return (
               <AlignedText
                 text={col.displayedName}
+                type="available_time"
                 childrenType="available_time"
               >
                 <Typography variant="body1">
@@ -62,6 +63,17 @@ export default function DietitianInfo({ showDialog, setShowDialog, data }) {
                     data.length !== 0 &&
                     data[0][col.key] !== undefined &&
                     data[0][col.key].join(" · ")}
+                </Typography>
+              </AlignedText>
+            );
+          } else if (col.key === "arrDomain") {
+            return (
+              <AlignedText text={col.displayedName} childrenType="text">
+                <Typography variant="body1">
+                  {data &&
+                    data.length !== 0 &&
+                    data[0][col.key] !== undefined &&
+                    data[0][col.key].join(" / ")}
                 </Typography>
               </AlignedText>
             );
