@@ -53,7 +53,7 @@ const Header = () => {
           <div className={classes.headerElement}>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
             <Typography variant="h6" className={classes.try}>
-              GoldenGrandsons
+              營了健康，營了人生
             </Typography>
           </div>
           <div className={classes.headerElement}>

@@ -109,6 +109,7 @@ export default function Consulation() {
 	const [availableSlots, setAvailableSlots] = useState([]);
 	const [showSucsDialog, setShowSucsDialog] = useState(false);
 	const [dietitianInfo, setDietitianInfo] = useState([]);
+	const [singleDietitianInfo, setSingleDietitianInfo] = useState([]);
 
 	useEffect(() => {
 		if (!filterDate || !filterTimeSlots || !topic) {
@@ -143,6 +144,7 @@ export default function Consulation() {
 	useEffect(() => {
 		const temp = dietitianInfo.find((x) => x.id === onClickID);
 		if (temp) {
+			setSingleDietitianInfo(temp);
 			setAvailableSlots(temp.available_time);
 		}
 	}, [onClickID, dietitianInfo]);
