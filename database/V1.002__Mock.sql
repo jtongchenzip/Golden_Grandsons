@@ -86,8 +86,6 @@ INSERT INTO dietitian_domain (dietitian_id, domain_id) VALUES (11, 1);
 INSERT INTO dietitian_domain (dietitian_id, domain_id) VALUES (11, 4); 
 INSERT INTO dietitian_domain (dietitian_id, domain_id) VALUES (11, 6); 
 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (1, 1, '09:00:00', '10:00:00'); 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (1, 1, '10:00:00', '11:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (1, 1, '11:00:00', '12:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (1, 1, '12:00:00', '13:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (1, 1, '13:00:00', '14:00:00'); 
@@ -98,8 +96,6 @@ INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, e
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (1, 1, '18:00:00', '19:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (1, 1, '19:00:00', '20:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (1, 1, '20:00:00', '21:00:00'); 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (1, 2, '09:00:00', '10:00:00'); 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (1, 2, '10:00:00', '11:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (1, 2, '11:00:00', '12:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (1, 2, '12:00:00', '13:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (1, 2, '13:00:00', '14:00:00'); 
@@ -111,8 +107,6 @@ INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, e
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (1, 2, '19:00:00', '20:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (1, 2, '20:00:00', '21:00:00'); 
 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (2, 3, '09:00:00', '10:00:00'); 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (2, 3, '10:00:00', '11:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (2, 3, '11:00:00', '12:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (2, 3, '12:00:00', '13:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (2, 3, '13:00:00', '14:00:00'); 
@@ -123,8 +117,6 @@ INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, e
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (2, 3, '18:00:00', '19:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (2, 3, '19:00:00', '20:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (2, 3, '20:00:00', '21:00:00'); 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (2, 4, '09:00:00', '10:00:00'); 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (2, 4, '10:00:00', '11:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (2, 4, '11:00:00', '12:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (2, 4, '12:00:00', '13:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (2, 4, '13:00:00', '14:00:00'); 
@@ -136,8 +128,6 @@ INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, e
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (2, 4, '19:00:00', '20:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (2, 4, '20:00:00', '21:00:00'); 
 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 5, '09:00:00', '10:00:00'); 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 5, '10:00:00', '11:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 5, '11:00:00', '12:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 5, '12:00:00', '13:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 5, '13:00:00', '14:00:00'); 
@@ -147,9 +137,7 @@ INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, e
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 5, '17:00:00', '18:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 5, '18:00:00', '19:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 5, '19:00:00', '20:00:00'); 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 5, '20:00:00', '21:00:00'); 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 6, '09:00:00', '10:00:00'); 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 6, '10:00:00', '11:00:00'); 
+INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 5, '20:00:00', '21:00:00');  
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 6, '11:00:00', '12:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 6, '12:00:00', '13:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 6, '13:00:00', '14:00:00'); 
@@ -161,8 +149,6 @@ INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, e
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 6, '19:00:00', '20:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (3, 6, '20:00:00', '21:00:00'); 
 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (4, 7, '09:00:00', '10:00:00'); 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (4, 7, '10:00:00', '11:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (4, 7, '11:00:00', '12:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (4, 7, '12:00:00', '13:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (4, 7, '13:00:00', '14:00:00'); 
@@ -173,8 +159,6 @@ INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, e
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (4, 7, '18:00:00', '19:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (4, 7, '19:00:00', '20:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (4, 7, '20:00:00', '21:00:00'); 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (4, 1, '09:00:00', '10:00:00'); 
-INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (4, 1, '10:00:00', '11:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (4, 1, '11:00:00', '12:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (4, 1, '12:00:00', '13:00:00'); 
 INSERT INTO dietitian_available_time (dietitian_id, available_day, start_time, end_time) VALUES (4, 1, '13:00:00', '14:00:00'); 
