@@ -191,7 +191,7 @@ export default function CustomTable({
   const classes = useStyles();
   const [curPage, setPage] = useState(0);
   const [pageInput, setPageInput] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [search, setSearch] = useState("");
   const [filterTimeSlots, setFilterTimeSlots] = useState([]);
   const [filterDate, setFilterDate] = useState("");
