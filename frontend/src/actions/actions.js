@@ -4,24 +4,24 @@ const agent = axios.create({
 	baseURL: "http://localhost:8000",
 });
 
-const getDietitian = () => {
-	// const config = {};
-	// const response = ___.get("/dietitian")
-	// const res = response.data;
-	// const data = {
-	//   id: res.id,
-	//   name: res.name,
-	//   work_unit: res.work_unit,
-	//   domain: res.domain,
-	//   available_time: res.available_time,
-	//   gender: res.gender,
-	//   introduction: res.introduction,
-	//   phone_number: res.phone_number,
-	//   link_id: `/dietitian/${res.id}`,
-	// };
-	// console.log("response data",data)
-	// return data;
-};
+// const getDietitian = () => {
+// const config = {};
+// const response = ___.get("/dietitian")
+// const res = response.data;
+// const data = {
+//   id: res.id,
+//   name: res.name,
+//   work_unit: res.work_unit,
+//   domain: res.domain,
+//   available_time: res.available_time,
+//   gender: res.gender,
+//   introduction: res.introduction,
+//   phone_number: res.phone_number,
+//   link_id: `/dietitian/${res.id}`,
+// };
+// console.log("response data",data)
+// return data;
+// };
 
 const getArticles = () => {
 	// const config = {};
@@ -109,6 +109,17 @@ const postSession = async (data) => {
 		// 		end_time: payload.end_time,
 		// 	},
 		// });
+		const { payload } = res.data;
+		return payload;
+	} catch (e) {
+		console.log(e.response);
+		return e.response;
+	}
+};
+
+const getDietitian = async () => {
+	try {
+		const res = await agent.get(`/dietitian`);
 		const { payload } = res.data;
 		return payload;
 	} catch (e) {

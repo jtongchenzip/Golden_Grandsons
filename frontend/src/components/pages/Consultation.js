@@ -16,6 +16,7 @@ import { makeStyles } from "@mui/styles";
 import DateTimePicker from "../ui/DateTimePicker";
 import { postSession } from "../../actions/actions";
 import DietitianInfo from "./DietitianInfo";
+import { getDietitian } from "../../actions/actions";
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -101,19 +102,36 @@ export default function Consulation() {
 	const [disabled, setDisabled] = useState(true);
 	const [onClickID, setOnClickID] = useState("");
 	const [showDietitianInfo, setShowDietitianInfo] = useState(false);
-	const [resSession, setResSession] = useState(null);
-	const [availableSlots, setAvailableSlots] = useState(null);
+	const [resSession, setResSession] = useState({});
+	const [availableSlots, setAvailableSlots] = useState([]);
 	const [showSucsDialog, setShowSucsDialog] = useState(false);
-	// const [data, setData] = useState([]);
-	// useEffect(() => {
-	//   setData(getDietitian()); //TODO
-	// }, []);
+	const [dietitianInfo, setDietitianInfo] = useState([]);
 
 	useEffect(() => {
 		if (!filterDate || !filterTimeSlots || !topic) {
 			setDisabled(true);
 		} else setDisabled(false);
 	}, [disabled, filterDate, filterTimeSlots, topic]);
+
+	useEffect(() => {
+		async function fetchDietitian() {
+			const res = await getDietitian();
+			res.map((item) => {
+				item.arrDomain = item.domain.reduce((acc, { name }) => {
+					return [...acc, name];
+				}, []);
+			});
+			setDietitianInfo(res);
+		}
+		fetchDietitian();
+	}, []);
+
+	useEffect(() => {
+		const temp = dietitianInfo.find((x) => x.id === onClickID);
+		if (temp) {
+			setAvailableSlots(temp.available_time);
+		}
+	}, [onClickID, dietitianInfo]);
 
 	const handleReserve = () => {
 		setShowReserveDialog(true);
@@ -175,7 +193,7 @@ export default function Consulation() {
 		<div className={classes.container}>
 			<Typography variant="h3">Consultation</Typography>
 			<CustomTable
-				data={data}
+				data={dietitianInfo}
 				columns={[
 					{
 						id: "name",
@@ -194,7 +212,7 @@ export default function Consulation() {
 						type: "string",
 					},
 					{
-						id: "domain",
+						id: "arrDomain",
 						label: "Domain",
 						minWidth: 100,
 						width: 150,
@@ -221,52 +239,54 @@ export default function Consulation() {
 				setShowDialog={setShowDietitianInfo}
 				onClickID={onClickID}
 			/>
-
-			<Dialog open={showReserveDialog} maxWidth="md" fullWidth={true}>
-				<DialogTitle>
-					<Typography variant="h4">請選擇諮詢主題與時間</Typography>
-				</DialogTitle>
-				<DialogContent>
-					<FormControl className={classes.topicControl}>
-						<InputLabel className={classes.topicLabel}>諮詢主題</InputLabel>
-						<Select
-							className={classes.topicSelect}
-							value={topic}
-							label="諮詢主題"
-							onChange={handleTopicChange}
+			{availableSlots && availableSlots.length !== 0 && (
+				<Dialog open={showReserveDialog} maxWidth="md" fullWidth={true}>
+					<DialogTitle>
+						<Typography variant="h4">請選擇諮詢主題與時間</Typography>
+					</DialogTitle>
+					<DialogContent>
+						<FormControl className={classes.topicControl}>
+							<InputLabel className={classes.topicLabel}>諮詢主題</InputLabel>
+							<Select
+								className={classes.topicSelect}
+								value={topic}
+								label="諮詢主題"
+								onChange={handleTopicChange}
+							>
+								{allDomain.map(({ id, name }) => {
+									return (
+										<MenuItem value={id} key={id}>
+											{name}
+										</MenuItem>
+									);
+								})}
+							</Select>
+						</FormControl>
+						<DateTimePicker
+							selectedDate={filterDate}
+							setSelectedDate={setFilterDate}
+							selectedTime={filterTimeSlots}
+							setSelectedTime={setFilterTimeSlots}
+							multipleTimeSlots={false}
+							timeSlots={availableSlots}
+							mode="availableSlots"
+						/>
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={handleSubmitCancel}>Cancel</Button>
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={handleSubmitFilterTime}
+							disableElevation
+							disabled={disabled}
 						>
-							{allDomain.map(({ id, name }) => {
-								return (
-									<MenuItem value={id} key={id}>
-										{name}
-									</MenuItem>
-								);
-							})}
-						</Select>
-					</FormControl>
-					<DateTimePicker
-						selectedDate={filterDate}
-						setSelectedDate={setFilterDate}
-						selectedTime={filterTimeSlots}
-						setSelectedTime={setFilterTimeSlots}
-						multipleTimeSlots={false}
-						timeSlots={availableSlots}
-						mode="availableSlots"
-					/>
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={handleSubmitCancel}>Cancel</Button>
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={handleSubmitFilterTime}
-						disableElevation
-						disabled={disabled}
-					>
-						Submit
-					</Button>
-				</DialogActions>
-			</Dialog>
+							Submit
+						</Button>
+					</DialogActions>
+				</Dialog>
+			)}
+
 			<Dialog open={showSucsDialog} maxWidth="md" fullWidth={true}>
 				<DialogTitle>
 					<Typography variant="h4">預約成功</Typography>

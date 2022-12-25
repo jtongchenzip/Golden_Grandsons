@@ -49,11 +49,11 @@ export default function ArticleInfo() {
 	const [article, setArticle] = useState(null);
 
 	useEffect(() => {
-		async function fetchData() {
+		async function fetchArticle() {
 			const res = await getArticle(id);
 			setArticle(res);
 		}
-		fetchData();
+		fetchArticle();
 	}, [id]);
 
 	return (
