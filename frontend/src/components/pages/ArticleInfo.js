@@ -63,7 +63,8 @@ export default function ArticleInfo() {
 					<div className={classes.leftHalf}>
 						<Typography variant="h3">{article.title}</Typography>
 						<Typography variant="h4" className={classes.authorName}>
-							{article.advertiser.name} ‧ {article.post_time.replace("T", " ")}
+							{article.advertiser.name} ‧{" "}
+							{article.post_time.replace("T", " ").slice(0, -3)}
 						</Typography>
 						<Divider className={classes.divider} />
 						<Typography>{article.context}</Typography>

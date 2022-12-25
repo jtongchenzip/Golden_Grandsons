@@ -77,24 +77,12 @@ const data = [
 ];
 
 const allDomain = [
-	{ id: 1, name: "臨床營養" },
-	{ id: 2, name: "體重管理" },
-	{ id: 3, name: "孕期營養" },
-	{ id: 4, name: "一般營養諮詢" },
-];
-const timeSlots = [
-	"09:00-10:00",
-	"10:00-11:00",
-	"11:00-12:00",
-	"12:00-13:00",
-	"13:00-14:00",
-	"14:00-15:00",
-	"15:00-16:00",
-	"16:00-17:00",
-	"17:00-18:00",
-	"18:00-19:00",
-	"19:00-20:00",
-	"20:00-21:00",
+	{ id: 1, name: "孕期營養" },
+	{ id: 2, name: "臨床營養學" },
+	{ id: 3, name: "體重管理" },
+	{ id: 4, name: "減脂期營養" },
+	{ id: 5, name: "保健產品營養課程" },
+	{ id: 6, name: "一般營養諮詢" },
 ];
 
 const enTozh = [
@@ -160,10 +148,10 @@ export default function Consulation() {
 	}, [onClickID, dietitianInfo]);
 
 	useEffect(() => {
-		if (resSession) {
+		if (resSession && !showReserveDialog) {
 			setShowSucsDialog(true);
 		} else setShowSucsDialog(false);
-	}, [resSession]);
+	}, [resSession, showReserveDialog]);
 
 	const handleReserve = () => {
 		setShowReserveDialog(true);
@@ -199,7 +187,6 @@ export default function Consulation() {
 		};
 		const res = await postSession(data);
 		setResSession(res);
-		// console.log(resSession);
 
 		setShowReserveDialog(false);
 		setDisabled(true);
@@ -322,7 +309,7 @@ export default function Consulation() {
 					</DialogActions>
 				</Dialog>
 			)}
-			{resSession && filterDate && filterTimeSlots && (
+			{resSession && !showReserveDialog && (
 				<Dialog open={showSucsDialog} maxWidth="sm" fullWidth={true}>
 					<DialogTitle>
 						<Typography variant="h4">預約成功</Typography>
@@ -333,15 +320,14 @@ export default function Consulation() {
 						</Typography>
 						<Typography>
 							諮詢時間：
-							{filterDate.getFullYear() +
-								"/" +
-								("0" + (filterDate.getMonth() + 1)).slice(-2) +
-								"/" +
-								("0" + filterDate.getDate()).slice(-2) +
-								" " +
-								filterTimeSlots}
+							{resSession.start_time &&
+								resSession.end_time &&
+								resSession.start_time.split("T")[0].replaceAll("-", "/") +
+									" " +
+									resSession.start_time.split("T")[1].slice(0, 5) +
+									"-" +
+									resSession.end_time.split("T")[1].slice(0, 5)}
 						</Typography>
-						{/*TODO: change time format*/}
 						<Typography>諮詢主題：{resSession.domain_name}</Typography>
 						<Typography>視訊會議連結：{resSession.link}</Typography>
 					</DialogContent>
