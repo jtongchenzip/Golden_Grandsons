@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { Typography, Divider } from "@mui/material";
+import { getArticle } from "../../actions/actions";
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -17,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "flex-start",
-		// justifyContent: "flex-start",
 	},
 	rightHalf: {
 		width: "30%",
@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 		borderRadius: "20px",
 		backgroundColor: "#eae0d3",
 		padding: "20px",
+		textAlign: "left",
 	},
 	divider: {
 		margin: "10px 0",
@@ -45,27 +46,36 @@ const useStyles = makeStyles((theme) => ({
 export default function ArticleInfo() {
 	const { id } = useParams(); // id for article
 	const classes = useStyles();
+	const [article, setArticle] = useState(null);
 
 	useEffect(() => {
-		console.log("article id", id);
-	});
+		async function fetchArticle() {
+			const res = await getArticle(id);
+			setArticle(res);
+		}
+		fetchArticle();
+	}, [id]);
 
 	return (
-		<div className={classes.container}>
-			<div className={classes.leftHalf}>
-				<Typography variant="h3">title</Typography>
-				<Typography variant="h4" className={classes.authorName}>
-					AUTHOR ‧ DATE
-				</Typography>
-				<Divider className={classes.divider} />
-				<Typography>content</Typography>
-			</div>
-			<div className={classes.rightHalf}>
-				<Typography variant="h4" className={classes.authorTitle}>
-					About XXX
-				</Typography>
-				<Typography>hihihi</Typography>
-			</div>
+		<div>
+			{article && (
+				<div className={classes.container}>
+					<div className={classes.leftHalf}>
+						<Typography variant="h3">{article.title}</Typography>
+						<Typography variant="h4" className={classes.authorName}>
+							{article.advertiser.name} ‧ {article.post_time.replace("T", " ")}
+						</Typography>
+						<Divider className={classes.divider} />
+						<Typography>{article.context}</Typography>
+					</div>
+					<div className={classes.rightHalf}>
+						<Typography variant="h4" className={classes.authorTitle}>
+							About {article.advertiser.name}
+						</Typography>
+						<Typography>{article.advertiser.introduction}</Typography>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }
