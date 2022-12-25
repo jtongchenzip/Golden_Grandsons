@@ -117,6 +117,7 @@ export default function Consulation() {
     } else setDisabled(false);
   }, [disabled, filterDate, filterTimeSlots, topic]);
 
+  // formatting be response data
   useEffect(() => {
     async function fetchDietitian() {
       const res = await getDietitian();
