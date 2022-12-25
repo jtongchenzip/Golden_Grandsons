@@ -113,7 +113,6 @@ const postSession = async (data) => {
 		return payload;
 	} catch (e) {
 		console.log(e.response);
-		return e.response;
 	}
 };
 
