@@ -97,6 +97,16 @@ const timeSlots = [
 	"20:00-21:00",
 ];
 
+const enTozh = [
+	"禮拜一",
+	"禮拜二",
+	"禮拜三",
+	"禮拜四",
+	"禮拜五",
+	"禮拜六",
+	"禮拜日",
+];
+
 export default function Consulation() {
 	const classes = useStyles();
 	const history = useHistory();
@@ -125,6 +135,17 @@ export default function Consulation() {
 				item.arrDomain = item.domain.reduce((acc, { name }) => {
 					return [...acc, name];
 				}, []);
+				item.available_time.map((x) => {
+					x.start_time = x.start_time.slice(0, 5);
+					x.end_time = x.end_time.slice(0, 5);
+				});
+				item.arrAvailTime = item.available_time.reduce(
+					(acc, { available_day, start_time, end_time }) => {
+						const zhDay = enTozh[available_day - 1];
+						return [...acc, zhDay + " " + start_time + "-" + end_time];
+					},
+					[]
+				);
 			});
 			setDietitianInfo(res);
 		}
@@ -235,7 +256,7 @@ export default function Consulation() {
 						type: "list",
 					},
 					{
-						id: "available_time",
+						id: "arrAvailTime",
 						label: "Available Time",
 						minWidth: 100,
 						width: 400,
