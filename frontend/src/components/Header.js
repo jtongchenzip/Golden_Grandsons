@@ -7,6 +7,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { makeStyles } from "@mui/styles";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import HealingIcon from "@mui/icons-material/Healing";
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -51,8 +52,8 @@ const Header = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters className={classes.header}>
           <div className={classes.headerElement}>
-            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-            <Typography variant="h6" className={classes.try}>
+            <HealingIcon sx={{ marginRight: "15px" }} />
+            <Typography variant="h6" sx={{ transform: "translateY(1px)" }}>
               營了健康，營了人生
             </Typography>
           </div>
