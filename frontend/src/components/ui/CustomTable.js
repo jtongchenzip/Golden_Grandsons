@@ -256,17 +256,18 @@ export default function CustomTable({
   };
   // functions for time filter
   const transformDateFormat = (filterDate) => {
-    return (
-      filterDate.getFullYear() +
-      "/" +
-      ("0" + (filterDate.getMonth() + 1)).slice(-2) +
-      "/" +
-      ("0" + filterDate.getDate()).slice(-2)
-    );
+    const day = filterDate.getDay();
+    const days = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+    if (day === 0) {
+      return "星期天";
+    } else {
+      return days[day - 1];
+    }
   };
   const dataFilterByTime = (data, filterTime, mode) => {
     return data.filter((record) => {
-      return record.available_time.some((slot) => {
+      console.log("record", record);
+      return record.arrAvailTime.some((slot) => {
         if (mode === "time") {
           return filterTime.some((filterKey) => slot.includes(filterKey));
         } else if (mode === "date") {
