@@ -340,7 +340,7 @@ export default function Consulation() {
               onClick={handleGoMyReservation}
               disableElevation
             >
-              前往預約記錄
+              Go To My Reservation
             </Button>
           </DialogActions>
         </Dialog>
