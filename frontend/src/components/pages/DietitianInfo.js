@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import {
   Typography,
-  Divider,
   Dialog,
   DialogContent,
   DialogActions,
@@ -16,19 +15,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const data = [
-  {
-    id: 3,
-    name: "jtc",
-    work_unit: "RockClimbing Clinic",
-    domain: "一般營養諮詢",
-    available_time: ["2022/12/31 16:00-17:00", "2022/12/30 11:00-12:00"],
-    gender: "female",
-    introduction: "提供專業攀岩選手的最佳營養計畫",
-    phone_number: "0907344689",
-    link_id: "/dietitian/3",
-  },
-];
+// const data = [
+//   {
+//     id: 3,
+//     name: "jtc",
+//     work_unit: "RockClimbing Clinic",
+//     domain: "一般營養諮詢",
+//     available_time: ["2022/12/31 16:00-17:00", "2022/12/30 11:00-12:00"],
+//     gender: "female",
+//     introduction: "提供專業攀岩選手的最佳營養計畫",
+//     phone_number: "0907344689",
+//     link_id: "/dietitian/3",
+//   },
+// ];
 
 const displayedColumns = [
   { displayedName: "Name", key: "name" },
@@ -55,9 +54,7 @@ export default function DietitianInfo({ showDialog, setShowDialog, data }) {
           if (col.key === "available_time") {
             return (
               <AlignedText text={col.displayedName} childrenType="text">
-                <Typography variant="body1">
-                  {data[col.key].join(", ")}
-                </Typography>
+                <Typography variant="body1">{data[col.key]}</Typography>
               </AlignedText>
             );
           } else {

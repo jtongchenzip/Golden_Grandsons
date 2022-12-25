@@ -17,6 +17,7 @@ import DateTimePicker from "../ui/DateTimePicker";
 import { postSession } from "../../actions/actions";
 import DietitianInfo from "./DietitianInfo";
 import { getDietitian } from "../../actions/actions";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -33,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
   },
   topicSelect: {
     height: "54px",
+  },
+  sucsDialogContent: {
+    margin: "1% 3%",
   },
 }));
 
@@ -93,8 +97,19 @@ const timeSlots = [
   "20:00-21:00",
 ];
 
+const enTozh = [
+  "禮拜一",
+  "禮拜二",
+  "禮拜三",
+  "禮拜四",
+  "禮拜五",
+  "禮拜六",
+  "禮拜日",
+];
+
 export default function Consulation() {
   const classes = useStyles();
+  const history = useHistory();
   const [showReserveDialog, setShowReserveDialog] = useState(false);
   const [topic, setTopic] = useState("");
   const [filterTimeSlots, setFilterTimeSlots] = useState("");
@@ -102,7 +117,7 @@ export default function Consulation() {
   const [disabled, setDisabled] = useState(true);
   const [onClickID, setOnClickID] = useState("");
   const [showDietitianInfo, setShowDietitianInfo] = useState(false);
-  const [resSession, setResSession] = useState({});
+  const [resSession, setResSession] = useState(null);
   const [availableSlots, setAvailableSlots] = useState([]);
   const [showSucsDialog, setShowSucsDialog] = useState(false);
   const [dietitianInfo, setDietitianInfo] = useState([]);
@@ -121,6 +136,17 @@ export default function Consulation() {
         item.arrDomain = item.domain.reduce((acc, { name }) => {
           return [...acc, name];
         }, []);
+        item.available_time.map((x) => {
+          x.start_time = x.start_time.slice(0, 5);
+          x.end_time = x.end_time.slice(0, 5);
+        });
+        item.arrAvailTime = item.available_time.reduce(
+          (acc, { available_day, start_time, end_time }) => {
+            const zhDay = enTozh[available_day - 1];
+            return [...acc, zhDay + " " + start_time + "-" + end_time];
+          },
+          []
+        );
       });
       setDietitianInfo(res);
     }
@@ -134,6 +160,12 @@ export default function Consulation() {
       setAvailableSlots(temp.available_time);
     }
   }, [onClickID, dietitianInfo]);
+
+  useEffect(() => {
+    if (resSession) {
+      setShowSucsDialog(true);
+    } else setShowSucsDialog(false);
+  }, [resSession]);
 
   const handleReserve = () => {
     setShowReserveDialog(true);
@@ -149,13 +181,13 @@ export default function Consulation() {
       ("0" + filterDate.getDate()).slice(-2);
 
     const startFilterTime = String(
-      dateFormat.replaceAll("/", "%2F") +
-        "%20" +
+      dateFormat.replaceAll("/", "-") +
+        "T" +
         (filterTimeSlots.split("-")[0] + ":00").replaceAll(":", "%3A")
     );
     const endFilterTime = String(
-      dateFormat.replaceAll("/", "%2F") +
-        "%20" +
+      dateFormat.replaceAll("/", "-") +
+        "T" +
         (filterTimeSlots.split("-")[1] + ":00").replaceAll(":", "%3A")
     );
     // console.log("start time", startFilterTime);
@@ -169,8 +201,7 @@ export default function Consulation() {
     };
     const res = await postSession(data);
     setResSession(res);
-    // console.log(resSession); // TODO: add success popup
-    // setShowSucsDialog(true);
+    // console.log(resSession);
 
     setShowReserveDialog(false);
     setDisabled(true);
@@ -189,6 +220,11 @@ export default function Consulation() {
 
   const handleTopicChange = (event) => {
     setTopic(event.target.value);
+  };
+
+  const handleGoMyReservation = () => {
+    history.push("/my-reservation");
+    window.location.reload();
   };
 
   return (
@@ -242,7 +278,7 @@ export default function Consulation() {
         data={singleDietitianInfo}
       />
       {availableSlots && availableSlots.length !== 0 && (
-        <Dialog open={showReserveDialog} maxWidth="md" fullWidth={true}>
+        <Dialog open={showReserveDialog} maxWidth="md" fullWidth={false}>
           <DialogTitle>
             <Typography variant="h4">請選擇諮詢主題與時間</Typography>
           </DialogTitle>
@@ -288,24 +324,41 @@ export default function Consulation() {
           </DialogActions>
         </Dialog>
       )}
-
-      <Dialog open={showSucsDialog} maxWidth="md" fullWidth={true}>
-        <DialogTitle>
-          <Typography variant="h4">預約成功</Typography>
-        </DialogTitle>
-        <DialogContent></DialogContent>
-        <DialogActions>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSubmitFilterTime}
-            disableElevation
-            disabled={disabled}
-          >
-            Submit
-          </Button>
-        </DialogActions>
-      </Dialog>
+      {resSession && filterDate && filterTimeSlots && (
+        <Dialog open={showSucsDialog} maxWidth="sm" fullWidth={true}>
+          <DialogTitle>
+            <Typography variant="h4">預約成功</Typography>
+          </DialogTitle>
+          <DialogContent className={classes.sucsDialogContent}>
+            <Typography>
+              諮詢對象：{resSession.dietitian_name} 營養師
+            </Typography>
+            <Typography>
+              諮詢時間：
+              {filterDate.getFullYear() +
+                "/" +
+                ("0" + (filterDate.getMonth() + 1)).slice(-2) +
+                "/" +
+                ("0" + filterDate.getDate()).slice(-2) +
+                " " +
+                filterTimeSlots}
+            </Typography>
+            {/*TODO: change time format*/}
+            <Typography>諮詢主題：{resSession.domain_name}</Typography>
+            <Typography>視訊會議連結：{resSession.link}</Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleGoMyReservation}
+              disableElevation
+            >
+              前往預約記錄
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </div>
   );
 }
