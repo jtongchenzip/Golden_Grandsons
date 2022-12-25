@@ -213,6 +213,15 @@ export default function CustomTable({
   // search for the keyword in all columns
   const handleSearch = () => {
     const searchResult = data.filter((record) => {
+      // search in an array
+      if (Object.keys(record).includes("domain")) {
+        const arrDomain = record.domain.reduce((acc, { name }) => {
+          return [...acc, name];
+        }, "");
+        if (arrDomain.includes(search)) {
+          return true;
+        }
+      }
       const values = Object.values(record);
       return values.some((value) => {
         if (typeof value === "string") {
