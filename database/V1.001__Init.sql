@@ -71,11 +71,11 @@ CREATE TABLE article (
     context       VARCHAR     NOT NULL
 );
 
-CREATE TABLE log (
-    id             BIGSERIAL   PRIMARY KEY,
-    user_id        INTEGER     NOT NULL REFERENCES user_account(id),
-    access_time    TIMESTAMP   NOT NULL,
-    request_method VARCHAR     NOT NULL,
-    resource_path  VARCHAR     NOT NULL,
-    ip             VARCHAR     NOT NULL
-);
+-- CREATE TABLE log (
+--     id             BIGSERIAL   PRIMARY KEY,
+--     user_id        INTEGER     NOT NULL REFERENCES user_account(id),
+--     access_time    TIMESTAMP   NOT NULL,
+--     request_method VARCHAR     NOT NULL,
+--     resource_path  VARCHAR     NOT NULL,
+--     ip             VARCHAR     NOT NULL
+-- );
